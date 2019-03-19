@@ -1,0 +1,96 @@
+<config>
+	<initScript>
+	</initScript>
+
+	<S1>
+		<angularServomotor />
+	</S1>
+	<S2>
+		<angularServomotor />
+	</S2>
+	<S3>
+		<angularServomotor />
+	</S3>
+	<S4>
+		<angularServomotor />
+	</S4>
+	<S5>
+		<angularServomotor />
+	</S5>
+	<S6>
+		<manipulatorServomotor />
+	</S6>
+	<A1>
+		<sharpGP2Sensor />
+	</A1>
+	<A2>
+		<sharpGP2Sensor />
+	</A2>
+	<A3>
+		<touchSensor />
+	</A3>
+	<A4>
+		<touchSensor />
+	</A4>
+	<A5>
+		<lightSensor />
+	</A5>
+	<A6>
+		<lightSensor />
+	</A6>
+	<D1>
+		<sonarSensor />
+	</D1>
+	<D2>
+		<sonarSensor />
+	</D2>
+	<D3>
+		<volumeSensor />
+	</D3>
+	<E1>
+		<encoder95 invert="true" />
+	</E1>
+	<E2>
+		<encoder95 invert="true" />
+	</E2>
+	<E3>
+		<encoder95 invert="true" />
+	</E3>
+	<E4>
+		<encoder95 invert="true" />
+	</E4>
+	<M1>
+		<motor350 />
+	</M1>
+	<M2>
+		<motor350 />
+	</M2>
+	<M3>
+		<motor350 />
+	</M3>
+	<M4>
+		<motor350 />
+	</M4>
+	<video1>
+		<lineSensor />
+	</video1>
+	<video2>
+		<photo />
+	</video2>
+<!-- On-board sensors. -->
+	<!-- If model is not using those, they can be turned off to save system resources, by deleting them or
+		 commenting them out. -->
+	<accelerometer />
+	<gyroscope />
+
+	<!-- Optional modules -->
+	<gamepad />
+	<mailbox />
+
+	<!-- Example of custom FIFO sensor -->
+	<!--
+	<soundSensor>
+		<fifo />
+	</soundSensor>
+	-->
+</config>
