@@ -21,7 +21,8 @@ const app = new Vue({
         buttonChangeState: "false",
         buttonChangeLanguage: "",
         // Network
-        wifiName: "",
+        essid: "",
+        password: "",
         hostName: "",
         hullNumber: "",
         leaderIP: "",
@@ -212,9 +213,8 @@ const app = new Vue({
             this.accelRange = "2G";
         },
 
-        editWiFiName() {
+        editHostname() {
             var xhr = new XMLHttpRequest();
-            this.hostName = this.wifiName;
             xhr.open("POST", this.scriptPath + "rename.sh");
             xhr.setRequestHeader('Content-Type', 'text-plain');
 
@@ -229,7 +229,35 @@ const app = new Vue({
                     }
                 }
             };
-            xhr.send(`${this.wifiName} \n`);
+            xhr.send(`${this.hostName} \n`);
+        },
+
+        submitNewWiFi() {
+            if (this.essid === "" || this.password.length < 8 || this.password.length > 63) {
+                app.dialogFlag = "wrongInput";
+                return;
+            }
+
+            var paramString = "essid=" + this.essid;
+            paramString += "&password=" + this.password;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "/cgi-bin/wpa-writer.sh");
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300)) {
+                        app.dialogFlag = "success";
+                    } else {
+                        app.xhrStatusPorts = xhr.status;
+                        app.xhrStatusPortsText = xhr.statusText;
+                        app.dialogFlag = "fail";
+                    }
+                }
+            };
+
+            xhr.send(paramString);
         },
 
         regShowLanguage() {
