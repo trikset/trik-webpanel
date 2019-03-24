@@ -24,7 +24,7 @@ EOF
 
 if [ ! -e ./current-params ]; then
     echo "angularServomotor angularServomotor angularServomotor angularServomotor angularServomotor manipulatorServomotor sharpGP2Sensor sharpGP2Sensor touchSensor touchSensor lightSensor lightSensor sonarSensor sonarSensor volumeSensor encoder95 true encoder95 true encoder95 true encoder95 true motor350 motor350 motor350 motor350 lineSensor photo" > current-params
-    echo "Default gyroscope and accelerometer settings" >> curren-params
+    echo "Default gyroscope and accelerometer settings" >> current-params
 fi
 
 response=`cat current-params`
