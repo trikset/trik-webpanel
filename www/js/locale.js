@@ -58,6 +58,7 @@ window.translations = {
         'submit' : 'Отправить',
         'toDefaultSettings': 'Вы действительно хотите вернуть настройки по умолчанию? (Не забудьте сохранить их)',
         'tryNextTime' : 'Пожалуйста, попробуйте еще раз',
+        'wifiError': 'Введите имя Wi-Fi и пароль (8..63 символов)',
         'wrongInput' : 'Неверные значения',
         'yes': 'Да',
     },
@@ -106,6 +107,7 @@ window.translations = {
         'state': 'State',
         'submit': 'Submit',
         'tryNextTime': 'Please, try again',
+        'wifiError': 'Add Wi-Fi name and password (8..63 characters)',
         'wrongInput' : 'Wrong input',
         'yes': 'Yes',
     }
