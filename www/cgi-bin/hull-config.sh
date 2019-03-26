@@ -22,6 +22,13 @@ set $params
 
 settings=/home/root/trik/localSettings.ini
 
-sed -i "/hullNumber=/c hullNumber=$1" $settings
+if ! grep -q hullNumber $settings ; then
+    echo "hullNumber=" >> $settings
+    echo "server=" >> $settings
+    echo "serverPort=8889" >> $settings
+fi
 
+sed -i "/hullNumber=/c hullNumber=$1" $settings
 sed -i "/server=/c server=$2" $settings
+
+echo "HTTP/1.1 200 Modified"
