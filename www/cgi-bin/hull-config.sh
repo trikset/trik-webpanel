@@ -33,3 +33,5 @@ sed -i "/hullNumber=/c hullNumber=$1" $settings
 sed -i "/server=/c server=$2" $settings
 
 echo "HTTP/1.1 200 Modified"
+
+killall trikGui
