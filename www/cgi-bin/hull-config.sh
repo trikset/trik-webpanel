@@ -24,6 +24,7 @@ settings=/home/root/trik/localSettings.ini
 
 if ! grep -q hullNumber $settings ; then
     echo "hullNumber=" >> $settings
+    echo "localIp=$(hostname -i)"
     echo "server=" >> $settings
     echo "serverPort=8889" >> $settings
 fi
