@@ -86,3 +86,4 @@ cp $model_config /home/root/trik/
 
 echo "HTTP/1.1 201 Modified"
 
+killall trikGui
