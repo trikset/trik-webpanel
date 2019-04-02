@@ -230,6 +230,7 @@ const app = new Vue({
                 }
             };
             xhr.send(`${this.hostName} \n`);
+            this.hostName = "";
         },
 
         submitNewWiFi() {
@@ -258,6 +259,8 @@ const app = new Vue({
             };
 
             xhr.send(paramString);
+            this.essid = "";
+            this.password = "";
         },
 
         regShowLanguage() {
@@ -288,6 +291,8 @@ const app = new Vue({
                 };
 
                 xhr.send(`${this.hullNumber} ${this.leaderIP}\n`);
+                this.hullNumber = "";
+                this.leaderIP = "";
             }
         },
     }
