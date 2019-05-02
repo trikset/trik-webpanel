@@ -32,8 +32,8 @@ sed -i 's!^\./ag-config\.sh.*$!./ag-config.sh ${1} ${2} ${3} ${4} ${5} ${6}!' $s
 if [[ $1 = "ON" ]]
 then
 	modprobe mma845x
-	local frequency=0
-	local range=0
+	frequency=0
+	range=0
 	case $2 in 
 		800) frequency=0
 			;;
@@ -78,8 +78,8 @@ if [[ $4 = "ON" ]]
 then
 	modprobe l3g42xxd
 	modprobe l3g42xxd_spi
-	local frequency=0
-	local range=0
+	frequency=0
+	range=0
 	case $5 in 
 		95) frequency=0
 			;;
