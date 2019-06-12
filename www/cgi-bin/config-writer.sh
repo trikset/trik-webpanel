@@ -43,17 +43,28 @@ do
 	device=${i#*=}
 
 	echo "	<$port>" >> $model_config
-
-	if [ $port = "E1" ] || [ $port = "E2" ] || [ $port = "E3" ] || [ $port = "E4" ]
-	then
-		encoder=${device%\?*}
-		invert=${device#*\?}
-		ports_config=$ports_config" "$encoder" "$invert
-		echo "		<$encoder invert=\"$invert\" />" >> $model_config
-	else
-		ports_config=$ports_config" "$device
-		echo "		<$device />" >> $model_config
-	fi
+	
+	case $port in
+		"E"[0-9]) #E1 E2 E3 E4
+			encoder=${device%\?*}
+			invert=${device#*\?}
+			ports_config=$ports_config" "$encoder" "$invert
+			echo "		<$encoder invert=\"$invert\" />" >> $model_config
+			;;
+		"video"[0-9]) #video1 video2
+			ports_config=$ports_config" "$device
+			if [ $device = "edgeLineSensor" ]
+			then
+				echo "		<lineSensor script=\"/etc/init.d/edge-line-sensor-ov7670\" />" >> $model_config
+			else
+				echo "		<$device />" >> $model_config
+			fi
+			;;
+		*)
+			ports_config=$ports_config" "$device
+			echo "		<$device />" >> $model_config
+			;;
+	esac
 
 	echo "	</$port>" >> $model_config
 done
