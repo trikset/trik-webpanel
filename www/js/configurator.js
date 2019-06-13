@@ -230,7 +230,7 @@ const app = new Vue({
                 }
             };
             xhr.send(`${this.hostName} \n`);
-            this.hostName = "";
+            //this.hostName = "";
         },
 
         submitNewWiFi() {
@@ -259,8 +259,8 @@ const app = new Vue({
             };
 
             xhr.send(paramString);
-            this.essid = "";
-            this.password = "";
+            //this.essid = "";
+            //this.password = ""; some
         },
 
         regShowLanguage() {
@@ -291,10 +291,17 @@ const app = new Vue({
                 };
 
                 xhr.send(`${this.hullNumber} ${this.leaderIP}\n`);
-                this.hullNumber = "";
-                this.leaderIP = "";
+                //this.hullNumber = "";
+                //this.leaderIP = "";
             }
         },
+		clearInput() {
+			this.essid = "";
+			this.password = "";
+			this.hostName = "";
+			this.hullNumber = "";
+			this.leaderIP = "";
+		}
     }
 });
 
