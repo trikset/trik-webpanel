@@ -209,7 +209,7 @@
                                             {{ texts[lang]['codeError'] }} {{xhrStatusPorts}} {{xhrStatusPortsText}} <br>
                                             {{ texts[lang]['tryNextTime'] }}
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" @click="clearInput()">
                                                     {{
                                                     texts[lang]['ok'] }}
                                                 </button>
@@ -218,7 +218,7 @@
                                         <div v-else-if="dialogFlag === 'success'">
                                             {{ texts[lang]['savedSettings'] }}
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" @click="clearInput()">
                                                     {{
                                                     texts[lang]['ok'] }}
                                                 </button>
@@ -227,7 +227,7 @@
                                         <div v-else-if="dialogFlag === 'wrongInput'">
                                             {{ texts[lang]['wifiError'] }}
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" @click="clearInput()">
                                                     {{
                                                     texts[lang]['ok'] }}
                                                 </button>
@@ -284,15 +284,15 @@
                                                     </div>
                                                 </div>
                                                 <div v-else-if="dialogFlag === 'fail'">
-                                                    {{ texts[lang]['codeError'] }} {{xhrStatusPorts}} {{xhrStatusPortsText}} <br>
-                                                    {{ texts[lang]['tryNextTime'] }}
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-success" data-dismiss="modal">
-                                                            {{
-                                                            texts[lang]['ok'] }}
-                                                        </button>
-                                                    </div>
-                                                </div>
+													{{ texts[lang]['codeError'] }} {{xhrStatusPorts}} {{xhrStatusPortsText}} <br>
+													{{ texts[lang]['tryNextTime'] }}
+													<div class="modal-footer">
+														<button type="button" class="btn btn-success" data-dismiss="modal">
+															{{
+															texts[lang]['ok'] }}
+														</button>
+													</div>
+												</div>
                                                 <div v-else-if="dialogFlag === 'success'">
                                                     {{ texts[lang]['savedSettings'] }}
                                                     <div class="modal-footer">
@@ -337,7 +337,7 @@
                                 data-toggle="modal" data-target="#SaveHullNumberDialog">Save</button>
                     </div>
 
-                    <div v-if="hullNumber != '' && leaderIp != ''">
+                    <div v-if="hullNumber != ''">
                         <div class="modal fade" id="SaveHullNumberDialog" tabindex="-1" role="dialog" aria-labelledby="SaveHullNumberDialog"
                              aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -369,7 +369,7 @@
                                             {{ texts[lang]['codeError'] }} {{xhrStatusPorts}} {{xhrStatusPortsText}} <br>
                                             {{ texts[lang]['tryNextTime'] }}
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" >
                                                     {{
                                                     texts[lang]['ok'] }}
                                                 </button>
@@ -378,7 +378,7 @@
                                         <div v-else-if="dialogFlag === 'success'">
                                             {{ texts[lang]['savedSettings'] }}
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" @click="clearInput()">
                                                     {{
                                                     texts[lang]['ok'] }}
                                                 </button>
@@ -390,7 +390,7 @@
                                             {{ texts[lang]['leaderIP'] }} - 000.000.000.000 <br>
                                             {{ texts[lang]['tryNextTime'] }}
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                <button type="button" class="btn btn-success" data-dismiss="modal" @click="clearInput()">
                                                     {{
                                                     texts[lang]['ok'] }}
                                                 </button>
