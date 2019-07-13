@@ -132,7 +132,9 @@
 
 
         </div>
-
+        <button type="button" class="btn btn-primary mr-3" @click="downloadLogs()" id="logs"
+                v-text="texts[lang]['logs']" >Download logs
+        </button>
 
         <div class="btn-group btn-group-toggle" v-if="regShowLanguage() === 'true'" role="buttons"
              aria-label="Basic example">

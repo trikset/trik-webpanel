@@ -68,6 +68,7 @@ const app = new Vue({
         xhrStatusPorts: "",
         xhrStatusPortsText: "",
         // Other (not front usage)
+        logsPath: "",
         scriptPath: "/cgi-bin/",
     },
     created: function () {
@@ -260,7 +261,7 @@ const app = new Vue({
 
             xhr.send(paramString);
             //this.essid = "";
-            //this.password = ""; some
+            //this.password = "";
         },
 
         regShowLanguage() {
@@ -301,7 +302,25 @@ const app = new Vue({
 			this.hostName = "";
 			this.hullNumber = "";
 			this.leaderIP = "";
-		}
+		},
+
+        downloadLogs: function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", this.scriptPath + "create-log.sh", false);
+            xhr.setRequestHeader('Content-Type', 'text-plain');
+            xhr.send();
+            if (!(xhr.status >= 200 && xhr.status < 300)) {
+            } else {
+                this.logsPath = xhr.responseText;
+            }
+
+            var link = document.createElement('a');
+            link.setAttribute('href', `${this.logsPath}`);
+            var filename = id.substr(id.lastIndexOf('/') + 1);
+            link.setAttribute('download', filename);
+            link.click();
+
+        }
     }
 });
 
