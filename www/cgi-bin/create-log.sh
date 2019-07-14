@@ -17,15 +17,15 @@
 ./notifyThenKill.sh $(basename -- "$0") $$
 
 FILEPATH=$(./etc/trik/log_manager.sh --all)
-FILESIZE=$(stat -c%s "$FILEPATH")
+SIZE=$(expr length "$FILEPATH")
 
 cp -fLr $FILEPATH ../
 
 cat << EOF
-HTTP/1.1 200 OK
+HTTP/1.1 201 Modified
 Connection: close
 Content-Type: text/plain, charset=us-ascii
-Content-length: ${FILESIZE}
+Content-length: ${SIZE}
 
 EOF
 
