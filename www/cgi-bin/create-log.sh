@@ -1,4 +1,4 @@
-#Copyright 2018 - 2019 Andrei Khodko
+#Copyright 2019 Andrei Khodko
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -14,8 +14,12 @@
 
 #!/bin/sh
 
-FILENAME=$(./etc/trik/log_manager.sh --all)
-FILESIZE=$(stat -c%s "$FILENAME")
+./notifyThenKill.sh $(basename -- "$0") $$
+
+FILEPATH=$(./etc/trik/log_manager.sh --all)
+FILESIZE=$(stat -c%s "$FILEPATH")
+
+cp -fLr $FILEPATH ../
 
 cat << EOF
 HTTP/1.1 200 OK
@@ -25,5 +29,5 @@ Content-length: ${FILESIZE}
 
 EOF
 
-echo "$FILENAME"
+echo "$FILEPATH"
 
