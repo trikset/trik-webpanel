@@ -14,9 +14,9 @@
 
 #!/bin/sh
 
-./notifyThenKill.sh $(basename -- "$0") $$
+#./notifyThenKill.sh $(basename -- "$0") $$
 
-FILEPATH=$(./etc/trik/log_manager.sh --all)
+FILEPATH=$(/etc/trik/log_manager.sh --all).tar.gz
 SIZE=$(expr length "$FILEPATH")
 
 cp -fLr $FILEPATH ../
