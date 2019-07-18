@@ -321,7 +321,7 @@ const app = new Vue({
                         var link = document.getElementById('logsLink');
                         var filename =`${app.logsPath}`.substr(`${app.logsPath}`.lastIndexOf('/') + 1);
 
-                        link.setAttribute('href', filename);
+                        link.setAttribute('href', 'logs/' + filename);
                         link.setAttribute('download', filename);
                         link.click();
                     } else {
