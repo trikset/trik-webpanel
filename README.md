@@ -11,3 +11,8 @@
 $ lighttpd -f lighttpd.conf
 ```
 Откройте в браузере страницу  http://127.0.0.1:8080/configurator.html
+
+### Todos
+- Удалить лишние файлы
+- Исправить подключение гироскопа и акселерометра
+- Выложить пробную версию на [meta-trik](https://github.com/trikset/meta-trik)
