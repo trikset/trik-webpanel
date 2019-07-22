@@ -1,4 +1,4 @@
-#Copyright 2018 - 2019 Andrei Khodko
+#Copyright 2019 Andrei Khodko
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -10,15 +10,22 @@
 #   distributed under the License is distributed on an "AS IS" BASIS,
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
-#   limitations under the License 
+#   limitations under the License
 
 #!/bin/sh
 
-if [ ! -e /etc/version ]; then
-	. ./allVarsForUserTest
-	export $(cut -d= -f1 allVarsForUserTest)
-	notify-send "Process $1 is launched" "$*"
+./notifyThenKill.sh $(basename -- "$0") $$
 
-	echo "HTTP/1.1 204 Modified"
-	kill $2
-fi
+FILEPATH=$(/etc/trik/log_manager.sh --all).tar.gz
+SIZE=$(expr length "$FILEPATH")
+
+cat << EOF
+HTTP/1.1 201 Modified
+Connection: close
+Content-Type: text/plain, charset=us-ascii
+Content-length: ${SIZE}
+
+EOF
+
+echo "$FILEPATH"
+

@@ -68,6 +68,7 @@ const app = new Vue({
         xhrStatusPorts: "",
         xhrStatusPortsText: "",
         // Other (not front usage)
+        logsPath: "",
         scriptPath: "/cgi-bin/",
     },
     created: function () {
@@ -260,7 +261,7 @@ const app = new Vue({
 
             xhr.send(paramString);
             //this.essid = "";
-            //this.password = ""; some
+            //this.password = "";
         },
 
         regShowLanguage() {
@@ -301,7 +302,36 @@ const app = new Vue({
 			this.hostName = "";
 			this.hullNumber = "";
 			this.leaderIP = "";
-		}
+		},
+
+        downloadLogs: function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", this.scriptPath + "create-log.sh");
+            xhr.setRequestHeader('Content-Type', 'text-plain');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300)) {
+                        //If that was notify-sender
+                        if (xhr.status == 204)
+                            return;
+
+                        app.logsPath = xhr.responseText;
+
+                        var link = document.getElementById('logsLink');
+                        var filename =`${app.logsPath}`.substr(`${app.logsPath}`.lastIndexOf('/') + 1);
+
+                        link.setAttribute('href', 'logs/' + filename);
+                        link.setAttribute('download', filename);
+                        link.click();
+                    } else {
+                        //mb notification if load is impossible
+                    }
+                }
+            };
+
+            xhr.send();
+        }
     }
 });
 

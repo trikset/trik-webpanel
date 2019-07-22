@@ -132,7 +132,11 @@
 
 
         </div>
-
+	    <a id="logsLink"></a>
+        <a href="#" class="mr-3" @click="downloadLogs()" id="logsPopover" data-toggle="popover" data-trigger="hover"
+            :data-content="texts[lang]['logs']"> <!---->
+            <img  src="images/logs2.png" height="40">
+        </a>
 
         <div class="btn-group btn-group-toggle" v-if="regShowLanguage() === 'true'" role="buttons"
              aria-label="Basic example">
