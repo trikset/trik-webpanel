@@ -16,15 +16,15 @@
 
 ACCELEROMETER_PATH=/sys/class/misc/mma845x/
 GYROSCOPE_PATH=/sys/class/misc/l3g42xxd/
-INIT_SCRIPT=/etc/default/trik/smth.sh # Nota bene there is no any script
+OPTIONS=/etc/default/trik/mems_options.sh
 
-# Set device parameters in $INIT_SCRIPT
+# Set device parameters in $OPTIONS
 # $1: device
 # $2: state value; $3: frequency value; $4: range value;
 set_params() {
-    sed -i "/${1}_state=/c ${1}_state=${2}" $INIT_SCRIPT
-    sed -i "/${1}_frequency=/c ${1}_frequency=${3}" $INIT_SCRIPT
-    sed -i "/${1}_range=/c ${1}_range=${4}" $INIT_SCRIPT
+    sed -i "/${1}_state=/c ${1}_state=${2}" $OPTIONS
+    sed -i "/${1}_freq=/c ${1}_freq=${3}" $OPTIONS
+    sed -i "/${1}_range=/c ${1}_range=${4}" $OPTIONS
 }
 
 read params
@@ -72,11 +72,11 @@ if [[ $1 = "ON" ]]; then
 			;;
 	esac
 
-    set_params "accelerometer" true $frequency $range
+    set_params "accel" true $frequency $range
 	echo $frequency > ${ACCELEROMETER_PATH}odr_selection
 	echo $range > ${ACCELEROMETER_PATH}fs_selection
 else
-    set_params "accelerometer" false 0 0
+    set_params "accel" false 0 0
 	rmmod mma845x
 fi
 
@@ -111,11 +111,11 @@ if [[ $4 = "ON" ]]; then
 			;;
 	esac
 
-    set_params "gyroscope" true $frequency $range
+    set_params "gyro" true $frequency $range
 	echo $frequency > ${GYROSCOPE_PATH}odr_selection
 	echo $range > ${GYROSCOPE_PATH}fs_selection
 else
-    set_params "gyroscope" false 0 0
+    set_params "gyro" false 0 0
 	rmmod l3g42xxd_spi
 	rmmod l3g42xxd
 fi
