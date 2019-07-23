@@ -14,23 +14,30 @@
 
 #!/bin/sh
 
+ACCELEROMETER_PATH=/sys/class/misc/mma845x/
+GYROSCOPE_PATH=/sys/class/misc/l3g42xxd/
+INIT_SCRIPT=/etc/default/trik/smth.sh # Nota bene there is no any script
+
 read params
 
 ./notifyThenKill.sh $(basename -- "$0") $$ $params
 
 set $params
 
-#system_config=/home/root/trik/system-config.xml
-accel_path=/sys/class/misc/mma845x/
-gyro_path=/sys/class/misc/l3g42xxd/
-
-
+# a_mode a_freq a_range g_mode g_freq g_range
 sed -i "2c${1} ${2} ${3} ${4} ${5} ${6}" current-params
-#sed -i 's!^\./ag-config\.sh.*$!./ag-config.sh ${1} ${2} ${3} ${4} ${5} ${6}!' $system_config
 
+# Set gyroscope&accelerometer options in init script
+cat > ${INIT_SCRIPT} << EOF
+accelerometer_mode=$1
+accelerometer_frequency=$2
+accelerometer_range=$3
+gyroscope_mode=$4
+gyroscope_frequency=$5
+gyroscope_range=$6
+EOF
 
-if [[ $1 = "ON" ]]
-then
+if [[ $1 = "ON" ]]; then
 	modprobe mma845x
 	frequency=0
 	range=0
@@ -66,16 +73,15 @@ then
 			;;
 	esac
 
-	echo $frequency > ${accel_path}odr_selection
-	echo $range > ${accel_path}fs_selection
+	echo $frequency > ${ACCELEROMETER_PATH}odr_selection
+	echo $range > ${ACCELEROMETER_PATH}fs_selection
 else
 	rmmod mma845x
 fi
 
 
 
-if [[ $4 = "ON" ]]
-then
+if [[ $4 = "ON" ]]; then
 	modprobe l3g42xxd
 	modprobe l3g42xxd_spi
 	frequency=0
@@ -104,8 +110,8 @@ then
 			;;
 	esac
 
-	echo $frequency > ${gyro_path}odr_selection
-	echo $range > ${gyro_path}fs_selection
+	echo $frequency > ${GYROSCOPE_PATH}odr_selection
+	echo $range > ${GYROSCOPE_PATH}fs_selection
 else
 	rmmod l3g42xxd_spi
 	rmmod l3g42xxd
