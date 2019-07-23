@@ -20,13 +20,13 @@ read params
 
 set $params
 
-system_config=/home/root/trik/system-config.xml
+#system_config=/home/root/trik/system-config.xml
 accel_path=/sys/class/misc/mma845x/
 gyro_path=/sys/class/misc/l3g42xxd/
 
 
 sed -i "2c${1} ${2} ${3} ${4} ${5} ${6}" current-params
-sed -i 's!^\./ag-config\.sh.*$!./ag-config.sh ${1} ${2} ${3} ${4} ${5} ${6}!' $system_config
+#sed -i 's!^\./ag-config\.sh.*$!./ag-config.sh ${1} ${2} ${3} ${4} ${5} ${6}!' $system_config
 
 
 if [[ $1 = "ON" ]]
