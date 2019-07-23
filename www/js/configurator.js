@@ -26,6 +26,7 @@ const app = new Vue({
         hostName: "",
         hullNumber: "",
         leaderIP: "",
+        pppdEnabled: true,
         // Ports
         s1: "angularServomotor",
         s2: "angularServomotor",
@@ -331,7 +332,12 @@ const app = new Vue({
             };
 
             xhr.send();
-        }
+        },
+
+        switchPPPD() {
+            this.pppdEnabled = !this.pppdEnabled;
+            app.dialogFlag = "success";
+        },
     }
 });
 

@@ -408,6 +408,81 @@
                     <!-- </form> -->
                 </div>
 
+                <div class="form-group col-md-6">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 10px">
+                        <div class="navbar-brand">
+                            <a v-text="texts[lang]['pppd']">PPP daemon</a>
+                            <small><small>
+                                <template v-if="pppdEnabled"><mark class="bg-warning text-dark rounded">{{texts[lang]['enabled']}}</mark></template>
+                                <template v-else ><mark class="bg-warning text-dark rounded">{{texts[lang]['disabled']}}</mark></template>
+                            </small></small>
+                        </div>
+                    </nav>
+                    <br>
+                    <div class="mb-3">
+                        <button v-show="!pppdEnabled" class="btn  btn-success" type="button" @click="refreshDialogFlag()"
+                                data-toggle="modal" v-text="texts[lang]['enable']" data-target="#SwitchPPPDDialog">
+                            Enable
+                        </button>
+                        <template>
+                            <button v-show="pppdEnabled" class="btn  btn-success" type="button" @click="refreshDialogFlag()"
+                                    data-toggle="modal" v-text="texts[lang]['disable']" data-target="#SwitchPPPDDialog">
+                                Disable
+                            </button>
+                        </template>
+                    </div>
+                    <div class="modal fade" id="SwitchPPPDDialog" tabindex="-1" role="dialog" aria-labelledby="SwitchPPPDDialog"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" v-if="dialogFlag === 'waiting'">{{ texts[lang]['confirm'] }}</h5>
+                                    <h5 class="modal-title" v-else-if="dialogFlag === 'fail'">{{ texts[lang]['fail'] }}</h5>
+                                    <h5 class="modal-title" v-else-if="dialogFlag === 'success'">{{ texts[lang]['saved'] }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div v-if="dialogFlag === 'waiting'">
+                                        {{ texts[lang]['confirmReboot'] }}
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{
+                                                texts[lang]['no']
+                                                }}
+                                            </button>
+                                            <button type="button" class="btn btn-success" @click="switchPPPD()">
+                                                {{
+                                                texts[lang]['yes'] }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div v-else-if="dialogFlag === 'fail'">
+                                        {{ texts[lang]['codeError'] }} {{xhrStatusPorts}} {{xhrStatusPortsText}} <br>
+                                        {{ texts[lang]['tryNextTime'] }}
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" data-dismiss="modal" >
+                                                {{
+                                                texts[lang]['ok'] }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div v-else-if="dialogFlag === 'success'">
+                                        {{ texts[lang]['savedSettings'] }}
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">
+                                                {{
+                                                texts[lang]['ok'] }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
         <div class="tab-pane fade" id="port">
