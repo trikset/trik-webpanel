@@ -14,15 +14,17 @@
 
 #!/bin/sh
 
+tty_path=/etc/trik/
+init_tty=/etc/trik/init_tty.sh
+
 read params
 
 ./notifyThenKill.sh $(basename -- "$0") $$ $params
 
-pppd_script=/etc/trik/init_tty.sh
 if [[ $params = "ON" ]]; then
-    pppd_script r
+    ln -f "$tty_path"tty_ppp.sh $init_tty
 else
-    pppd_script n
+    ln -f "$tty_path"tty_ppp.sh $init_tty
 fi
 
 echo "HTTP/1.1 201 Modified"
