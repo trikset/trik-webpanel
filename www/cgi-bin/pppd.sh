@@ -1,3 +1,4 @@
+#!/bin/sh
 #Copyright 2019 Andrei Khodko
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +13,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License
 
-#!/bin/sh
-
-tty_path=/etc/trik/
+tty_path=/usr/share/trik/
 init_tty=/etc/trik/init_tty.sh
 
 read params
@@ -24,7 +23,7 @@ read params
 if [[ $params = "ON" ]]; then
     ln -f "$tty_path"tty_ppp.sh $init_tty
 else
-    ln -f "$tty_path"tty_ppp.sh $init_tty
+    ln -f "$tty_path"tty_login.sh $init_tty
 fi
 
 echo "HTTP/1.1 201 Modified"
