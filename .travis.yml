@@ -1,5 +1,9 @@
 language: minimal
 os: linux
+addons:
+  apt:
+    packages:
+      - realpath
 git:
   depth: 1
 env:
