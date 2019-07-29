@@ -27,4 +27,4 @@ else
 fi
 
 echo "HTTP/1.1 201 Modified"
-killall trikGui
+reboot
