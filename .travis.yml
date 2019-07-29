@@ -17,4 +17,4 @@ script:
 # 3. add `-o all`
 # 4. change to `-S style`
 
-  - 'find recipes-* | xargs file | grep shell | cut -f 1 -d : | xargs shellcheck -S warning -W 20 -f gcc --color=always -e 2154 -e 2034 -e 1090 -e 2153'
+  - 'find www/cgi-bin/* | xargs file | grep shell | cut -f 1 -d : | xargs shellcheck -S warning -W 20 -f gcc --color=always -e 2154 -e 2034 -e 1090 -e 2153'
