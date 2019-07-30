@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 	if [ "$REQUEST_METHOD" = "POST" ]; then
 	    read params

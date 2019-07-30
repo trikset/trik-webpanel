@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 
 iwlist wlan0 scan | awk '
 BEGIN { FS=":"; OFS=""; ORS="";}
