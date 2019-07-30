@@ -15,9 +15,9 @@
 
 read params
 
-./notifyThenKill.sh $(basename -- "$0") $$ $params
+./notifyThenKill.sh "$(basename -- '$0')" $$ "$params"
 
-set $params
+set "$params"
 
 system_config=/home/root/trik/system-config.xml
 accel_path=/sys/class/misc/mma845x/

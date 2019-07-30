@@ -15,9 +15,9 @@
 
 read params
 
-./notifyThenKill.sh $(basename -- "$0") $$ $params
+./notifyThenKill.sh "$(basename -- '$0')" $$ "$params"
 
-set $params
+set "$params"
 
 settings=/home/root/trik/localSettings.ini
 

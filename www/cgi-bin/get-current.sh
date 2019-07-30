@@ -26,5 +26,5 @@ if [ ! -e ./current-params ]; then
     echo "Default gyroscope and accelerometer settings" >> current-params
 fi
 
-response=`cat current-params`
+response=$(cat current-params)
 echo  "$response"
