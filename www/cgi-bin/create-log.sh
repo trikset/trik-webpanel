@@ -13,10 +13,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License
 
-./notifyThenKill.sh "$(basename -- '$0')" $$
+./notifyThenKill.sh "$(basename -- "$0")" $$
 
 FILEPATH=$(/etc/trik/log_manager.sh --all).tar.gz
-SIZE=$(expr length "$FILEPATH")
+SIZE=${#FILEPATH}
 
 cat << EOF
 HTTP/1.1 201 Modified
@@ -27,4 +27,3 @@ Content-length: ${SIZE}
 EOF
 
 echo "$FILEPATH"
-

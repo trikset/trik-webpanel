@@ -13,9 +13,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License 
 
-read params
+read -r params
 
-./notifyThenKill.sh "$(basename -- '$0')" $$ "$params"
+./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
 echo "$params" > /etc/hostname
 

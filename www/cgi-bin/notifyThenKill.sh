@@ -14,10 +14,11 @@
 #   limitations under the License 
 
 if [ ! -e /etc/version ]; then
-	. ./allVarsForUserTest
-	export $(cut -d= -f1 allVarsForUserTest)
+    # shellcheck disable=SC1091
+	source ./allVarsForUserTest
+	export "$(cut -d= -f1 allVarsForUserTest)"
 	notify-send "Process $1 is launched" "$*"
 
 	echo "HTTP/1.1 204 Modified"
-	kill $2
+	kill "$2"
 fi
