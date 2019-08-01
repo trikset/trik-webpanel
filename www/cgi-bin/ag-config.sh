@@ -17,19 +17,25 @@ read -r params
 
 ./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
+ACCELEROMETER_PATH=/sys/class/misc/mma845x/
+GYROSCOPE_PATH=/sys/class/misc/l3g42xxd/
+OPTIONS=/etc/default/trik/mems_options.sh
+
+# Set device parameters in $OPTIONS
+# $1: device
+# $2: state value; $3: frequency value; $4: range value;
+set_params() {
+    sed -i "/${1}_state=/c ${1}_state=${2}" $OPTIONS
+    sed -i "/${1}_freq=/c ${1}_freq=${3}" $OPTIONS
+    sed -i "/${1}_range=/c ${1}_range=${4}" $OPTIONS
+}
+
 set "$params"
 
-system_config=/home/root/trik/system-config.xml
-accel_path=/sys/class/misc/mma845x/
-gyro_path=/sys/class/misc/l3g42xxd/
-
-
+# a_state a_freq a_range g_state g_freq g_range
 sed -i "2c${1} ${2} ${3} ${4} ${5} ${6}" current-params
-sed -i 's!^\./ag-config\.sh.*$!./ag-config.sh ${1} ${2} ${3} ${4} ${5} ${6}!' $system_config
 
-
-if [[ $1 = "ON" ]]
-then
+if [[ $1 = "ON" ]]; then
 	modprobe mma845x
 	frequency=0
 	range=0
@@ -65,16 +71,17 @@ then
 			;;
 	esac
 
-	echo $frequency > ${accel_path}odr_selection
-	echo $range > ${accel_path}fs_selection
+    set_params "accel" true $frequency $range
+	echo $frequency > ${ACCELEROMETER_PATH}odr_selection
+	echo $range > ${ACCELEROMETER_PATH}fs_selection
 else
+    set_params "accel" false 0 0
 	rmmod mma845x
 fi
 
 
 
-if [[ $4 = "ON" ]]
-then
+if [[ $4 = "ON" ]]; then
 	modprobe l3g42xxd
 	modprobe l3g42xxd_spi
 	frequency=0
@@ -103,9 +110,11 @@ then
 			;;
 	esac
 
-	echo $frequency > ${gyro_path}odr_selection
-	echo $range > ${gyro_path}fs_selection
+    set_params "gyro" true $frequency $range
+	echo $frequency > ${GYROSCOPE_PATH}odr_selection
+	echo $range > ${GYROSCOPE_PATH}fs_selection
 else
+    set_params "gyro" false 0 0
 	rmmod l3g42xxd_spi
 	rmmod l3g42xxd
 fi
