@@ -26,6 +26,7 @@ const app = new Vue({
         hostName: "",
         hullNumber: "",
         leaderIP: "",
+        pppdEnabled: true,
         // Ports
         s1: "angularServomotor",
         s2: "angularServomotor",
@@ -82,7 +83,8 @@ const app = new Vue({
             var text = xhr.responseText;
             text = text.split('\n');
             var ports = text[0].split(' ');
-            ag = text[1].split(' ');
+            var ag = text[1].split(' ');
+            var network = text[2].split(' ');
         }
         this.s1 = ports[0];
         this.s2 = ports[1];
@@ -119,7 +121,7 @@ const app = new Vue({
         this.gyroRange = ag[5];
         this.accelFreq = ag[1];
         this.accelRange = ag[2];
-
+        this.pppdEnabled = (network[0] === "ON");
 
     },
     methods: {
@@ -331,7 +333,28 @@ const app = new Vue({
             };
 
             xhr.send();
-        }
+        },
+
+        switchPPPD() {
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("POST", this.scriptPath + "pppd.sh");
+            xhr.setRequestHeader('Content-Type', 'text-plain');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        app.dialogFlag = "success";
+                        this.pppdEnabled = !this.pppdEnabled;
+                    } else {
+                        app.xhrStatusPorts = xhr.status;
+                        app.xhrStatusPortsText = xhr.statusText;
+                        app.dialogFlag = "fail";
+                    }
+                }
+            };
+            xhr.send(`${!this.pppdEnabled} \n`);
+        },
     }
 });
 
