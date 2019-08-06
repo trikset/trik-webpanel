@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/khodand/trik-webpanel.svg?branch=master)](https://travis-ci.org/khodand/trik-webpanel)
+
 # Веб-конфигуратор [ТРИК](https://github.com/trikset)
 
 Избавляет пользователя от сложного конфигурирования контроллера с использованием ssh, предоставляя удобный веб-интерфейс.
