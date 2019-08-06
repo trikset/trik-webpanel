@@ -340,12 +340,13 @@ const app = new Vue({
 
             xhr.open("POST", this.scriptPath + "pppd.sh");
             xhr.setRequestHeader('Content-Type', 'text-plain');
-
+  
+            that = this;
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if (xhr.status >= 200 && xhr.status < 300) {
                         app.dialogFlag = "success";
-                        this.pppdEnabled = !this.pppdEnabled;
+                        that.pppdEnabled = !that.pppdEnabled;
                     } else {
                         app.xhrStatusPorts = xhr.status;
                         app.xhrStatusPortsText = xhr.statusText;
@@ -353,7 +354,7 @@ const app = new Vue({
                     }
                 }
             };
-            xhr.send(`${!this.pppdEnabled} \n`);
+            xhr.send(`${!that.pppdEnabled} \n`);
         },
     }
 });
