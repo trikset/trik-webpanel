@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/trikset/trik-webpanel/badge/master)](https://www.codefactor.io/repository/github/trikset/trik-webpanel/overview/master)
+
 # Веб-конфигуратор [ТРИК](https://github.com/trikset)
 
 Избавляет пользователя от сложного конфигурирования контроллера с использованием ssh, предоставляя удобный веб-интерфейс.
@@ -10,4 +12,4 @@
 ```sh
 $ lighttpd -f lighttpd.conf
 ```
-Откройте в браузере страницу  http://127.0.0.1:8080/configurator.html
+Откройте в браузере страницу  http://localhost:8080/configurator.html
