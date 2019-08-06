@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/khodand/trik-webpanel.svg?branch=master)](https://travis-ci.org/khodand/trik-webpanel)
+[![CodeFactor](https://www.codefactor.io/repository/github/trikset/trik-webpanel/badge/master)](https://www.codefactor.io/repository/github/trikset/trik-webpanel/overview/master)
+
 
 # Веб-конфигуратор [ТРИК](https://github.com/trikset)
 
@@ -12,4 +14,4 @@
 ```sh
 $ lighttpd -f lighttpd.conf
 ```
-Откройте в браузере страницу  http://127.0.0.1:8080/configurator.html
+Откройте в браузере страницу  http://localhost:8080/configurator.html
