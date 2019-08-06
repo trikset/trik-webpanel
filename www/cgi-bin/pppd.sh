@@ -26,5 +26,7 @@ else
     ln -f "$tty_path"tty_login.sh $init_tty
 fi
 
+sed -i "3c${params}" current-params
+
 echo "HTTP/1.1 201 Modified"
 reboot
