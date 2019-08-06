@@ -20,7 +20,7 @@ read params
 
 ./notifyThenKill.sh $(basename -- "$0") $$ $params
 
-if [[ $params = "ON" ]]; then
+if [[ $params = "true" ]]; then
     ln -f "$tty_path"tty_ppp.sh $init_tty
 else
     ln -f "$tty_path"tty_login.sh $init_tty
