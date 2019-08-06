@@ -21,4 +21,4 @@ script:
 # 3. add `-o all`
 # 4. change to `-S style`
 
-  - 'find . -executable -type f  -not -path "./.git*" | xargs shellcheck -S style -W 20 -f gcc --color=always'
+  - 'find . -executable -type f  -not -path "./.git*" -not -path "./shellcheck*" | xargs shellcheck -S style -W 20 -f gcc --color=always'
