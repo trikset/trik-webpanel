@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/khodand/trik-webpanel.svg?branch=master)](https://travis-ci.org/khodand/trik-webpanel)
+[![Build Status](https://travis-ci.org/trikset/trik-webpanel.svg?branch=master)](https://travis-ci.org/trikset/trik-webpanel)
 [![CodeFactor](https://www.codefactor.io/repository/github/trikset/trik-webpanel/badge/master)](https://www.codefactor.io/repository/github/trikset/trik-webpanel/overview/master)
 
 
