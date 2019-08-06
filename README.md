@@ -13,3 +13,4 @@
 $ lighttpd -f lighttpd.conf
 ```
 Откройте в браузере страницу  http://localhost:8080/configurator.html
+ 
