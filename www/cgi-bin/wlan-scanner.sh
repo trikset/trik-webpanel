@@ -1,5 +1,7 @@
-#! /bin/sh
+#!/bin/bash
 
+# This is the special code so we need to strange quoting
+# shellcheck disable=SC1078 disable=SC1079 disable=SC2026
 iwlist wlan0 scan | awk '
 BEGIN { FS=":"; OFS=""; ORS="";}
 /Encryption key/ { encrypted=$2; }

@@ -1,3 +1,4 @@
+#!/bin/bash
 #Copyright 2018 - 2019 Andrei Khodko
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +13,11 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License 
 
-#!/bin/sh
+read -r params
 
-read params
+./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
-./notifyThenKill.sh $(basename -- "$0") $$ $params
-
-set $params
+set "$params"
 
 Args="$*"
 
@@ -48,12 +47,12 @@ do
 		"E"[0-9]) #E1 E2 E3 E4
 			encoder=${device%\?*}
 			invert=${device#*\?}
-			ports_config=$ports_config" "$encoder" "$invert
+			ports_config="$ports_config $encoder $invert"
 			echo "		<$encoder invert=\"$invert\" />" >> $model_config
 			;;
 		"video"[0-9]) #video1 video2
 			ports_config=$ports_config" "$device
-			if [ $device = "edgeLineSensor" ]
+			if [[ "$device" = "edgeLineSensor" ]]
 			then
 				echo "		<lineSensor script=\"/etc/init.d/edge-line-sensor-ov7670\" />" >> $model_config
 			else

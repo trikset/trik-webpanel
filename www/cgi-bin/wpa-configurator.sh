@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 cat << EOF
 Content-Type: text/html
 
@@ -20,7 +20,7 @@ Content-Type: text/html
 EOF
 echo "<div id='related_links'>"
 echo "<ul>"
-echo $(bash wlan-scanner.sh)
+bash wlan-scanner.sh
 echo "</ul>"
 echo "</div>"
 cat << EOF 

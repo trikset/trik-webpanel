@@ -1,3 +1,4 @@
+#!/bin/bash
 #Copyright 2018 - 2019 Andrei Khodko
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -10,9 +11,7 @@
 #   distributed under the License is distributed on an "AS IS" BASIS,
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
-#   limitations under the License 
-
-#!/bin/sh
+#   limitations under the License
 
 cat << EOF
 HTTP/1.1 200 OK
@@ -28,5 +27,5 @@ if [ ! -e ./current-params ]; then
     echo "true" >> current-params
 fi
 
-response=`cat current-params`
+response=$(cat current-params)
 echo  "$response"

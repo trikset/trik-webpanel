@@ -16,11 +16,11 @@
 tty_path=/usr/share/trik/
 init_tty=/etc/trik/init_tty.sh
 
-read params
+read -r params
 
-./notifyThenKill.sh $(basename -- "$0") $$ $params
+./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
-if [[ $params = "true" ]]; then
+if [ "$params" = "true" ]; then
     ln -f "$tty_path"tty_ppp.sh $init_tty
 else
     ln -f "$tty_path"tty_login.sh $init_tty
