@@ -1,9 +1,5 @@
 language: minimal
 os: linux
-addons:
-  apt:
-    packages:
-      - realpath
 git:
   depth: 1
 env:
@@ -12,7 +8,7 @@ env:
 install:
   - wget -qO- "https://storage.googleapis.com/shellcheck/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJv
 script:
-  - export PATH=$(realpath "shellcheck-${scversion}"):$PATH
+  - export PATH=$(readlink -f "shellcheck-${scversion}"):$PATH
   - shellcheck --version
   - shellcheck --help || true
 #TODO: 
