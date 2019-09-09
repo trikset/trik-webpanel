@@ -73,6 +73,11 @@ const app = new Vue({
         scriptPath: "/cgi-bin/",
     },
     created: function () {
+        var language = window.navigator.userLanguage || window.navigator.language;
+        if (language == 'ru') {
+            this.changeLang('ru');
+        }
+
         var xhr = new XMLHttpRequest();
         xhr.open("GET", this.scriptPath + "get-current.sh", false);
         xhr.setRequestHeader('Content-Type', 'text-plain');
