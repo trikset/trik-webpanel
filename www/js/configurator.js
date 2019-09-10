@@ -298,6 +298,7 @@ const app = new Vue({
                 //this.leaderIP = "";
             }
         },
+
 		clearInput() {
 			this.essid = "";
 			this.password = "";
