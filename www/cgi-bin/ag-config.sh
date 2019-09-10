@@ -20,6 +20,7 @@ read -r params
 ACCELEROMETER_PATH=/sys/class/misc/mma845x/
 GYROSCOPE_PATH=/sys/class/misc/l3g42xxd/
 OPTIONS=/etc/default/trik/mems_options.sh
+MODEL_CONFIG=/home/root/trik/model-config.xml
 
 # Set device parameters in $OPTIONS
 # $1: device
@@ -30,16 +31,24 @@ set_params() {
     sed -i "/${1}_range=/c ${1}_range=${4}" $OPTIONS
 }
 
-set "$params"
+comment_mems() {
+  sed -i "s@$1@	<!-- $1 -->@" $MODEL_CONFIG
+}
+
+uncomment_mems() {
+  sed -i "s@$1@	$1@" $MODEL_CONFIG
+}
+
+set $params
 
 # a_state a_freq a_range g_state g_freq g_range
 sed -i "2c${1} ${2} ${3} ${4} ${5} ${6}" current-params
 
-if [[ $1 = "ON" ]]; then
+if [[ "$1" = "ON" ]]; then
 	modprobe mma845x
 	frequency=0
 	range=0
-	case $2 in 
+	case "$2" in
 		800) frequency=0
 			;;
 		400) frequency=1
@@ -60,7 +69,7 @@ if [[ $1 = "ON" ]]; then
 			;;
 	esac
 
-	case $3 in 
+	case "$3" in
 		2G)	range=0
 			;;
 		4G)	range=1
@@ -71,22 +80,24 @@ if [[ $1 = "ON" ]]; then
 			;;
 	esac
 
-    set_params "accel" true $frequency $range
+  uncomment_mems "<accelerometer />"
+  set_params "accel" true $frequency $range
 	echo $frequency > ${ACCELEROMETER_PATH}odr_selection
 	echo $range > ${ACCELEROMETER_PATH}fs_selection
 else
-    set_params "accel" false 0 0
+  comment_mems "<accelerometer />"
+  set_params "accel" false 0 0
 	rmmod mma845x
 fi
 
 
 
-if [[ $4 = "ON" ]]; then
+if [[ "$4" = "ON" ]]; then
 	modprobe l3g42xxd
 	modprobe l3g42xxd_spi
 	frequency=0
 	range=0
-	case $5 in 
+	case "$5" in
 		95) frequency=0
 			;;
 		190) frequency=1
@@ -99,7 +110,7 @@ if [[ $4 = "ON" ]]; then
 			;;
 	esac
 
-	case $6 in 
+	case "$6" in
 		250)	range=0
 			;;
 		500)	range=1
@@ -110,11 +121,13 @@ if [[ $4 = "ON" ]]; then
 			;;
 	esac
 
-    set_params "gyro" true $frequency $range
+  uncomment_mems "<gyroscope />"
+  set_params "gyro" true $frequency $range
 	echo $frequency > ${GYROSCOPE_PATH}odr_selection
 	echo $range > ${GYROSCOPE_PATH}fs_selection
 else
-    set_params "gyro" false 0 0
+  comment_mems "<gyroscope />"
+  set_params "gyro" false 0 0
 	rmmod l3g42xxd_spi
 	rmmod l3g42xxd
 fi

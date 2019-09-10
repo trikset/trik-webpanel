@@ -17,7 +17,7 @@ read -r params
 
 ./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
-set "$params"
+set $params
 
 Args="$*"
 
@@ -73,14 +73,20 @@ done
 
 sed -i "1c${ports_config}" $current_params
 
+# $1: is_active; $2: name;
+add_mems() {
+	if [[ "$1" = "0" ]]; then
+	  echo "	<!-- $2 -->" >> $model_config
+	else
+	  echo "	$2" >> $model_config
+  fi
+}
+
+add_mems "$(lsmod | grep -c mma845x)" "<accelerometer />"
+add_mems "$(lsmod | grep -c l3g42xxd)" "<gyroscope />"
+
 
 cat >> $model_config << EOF
-<!-- On-board sensors. -->
-	<!-- If model is not using those, they can be turned off to save system resources, by deleting them or
-		 commenting them out. -->
-	<accelerometer />
-	<gyroscope />
-
 	<!-- Optional modules -->
 	<gamepad />
 	<mailbox />
