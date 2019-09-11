@@ -17,6 +17,7 @@ read -r params
 
 ./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
+# shellcheck disable=SC2086
 set $params
 
 Args="$*"

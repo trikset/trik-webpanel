@@ -32,13 +32,16 @@ set_params() {
 }
 
 comment_mems() {
-  sed -i "s@$1@	<!-- $1 -->@" $MODEL_CONFIG
+  sed -i "s/<$1 \/>/<\!-- <$1 \/> -->/" $MODEL_CONFIG
 }
 
 uncomment_mems() {
-  sed -i "s@$1@	$1@" $MODEL_CONFIG
+  sed -i "s/<\!-- <$1 \/> -->/<$1 \/>/" $MODEL_CONFIG
 }
+gyro_name="gyroscope"
+accel_name="accelerometer"
 
+# shellcheck disable=SC2086
 set $params
 
 # a_state a_freq a_range g_state g_freq g_range
@@ -80,12 +83,12 @@ if [[ "$1" = "ON" ]]; then
 			;;
 	esac
 
-  uncomment_mems "<accelerometer />"
+  uncomment_mems "$accel_name"
   set_params "accel" true $frequency $range
 	echo $frequency > ${ACCELEROMETER_PATH}odr_selection
 	echo $range > ${ACCELEROMETER_PATH}fs_selection
 else
-  comment_mems "<accelerometer />"
+  comment_mems "$accel_name"
   set_params "accel" false 0 0
 	rmmod mma845x
 fi
@@ -121,12 +124,12 @@ if [[ "$4" = "ON" ]]; then
 			;;
 	esac
 
-  uncomment_mems "<gyroscope />"
+  uncomment_mems "$gyro_name"
   set_params "gyro" true $frequency $range
 	echo $frequency > ${GYROSCOPE_PATH}odr_selection
 	echo $range > ${GYROSCOPE_PATH}fs_selection
 else
-  comment_mems "<gyroscope />"
+  comment_mems "$gyro_name"
   set_params "gyro" false 0 0
 	rmmod l3g42xxd_spi
 	rmmod l3g42xxd
