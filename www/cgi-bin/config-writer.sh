@@ -17,7 +17,8 @@ read -r params
 
 ./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
-set "$params"
+# shellcheck disable=SC2086
+set $params
 
 Args="$*"
 
@@ -47,11 +48,10 @@ do
 		"E"[0-9]) #E1 E2 E3 E4
 			encoder=${device%\?*}
 			invert=${device#*\?}
-			ports_config="$ports_config $encoder $invert"
+			device="$encoder $invert"
 			echo "		<$encoder invert=\"$invert\" />" >> $model_config
 			;;
 		"video"[0-9]) #video1 video2
-			ports_config=$ports_config" "$device
 			if [[ "$device" = "edgeLineSensor" ]]
 			then
 				echo "		<lineSensor script=\"/etc/init.d/edge-line-sensor-ov7670\" />" >> $model_config
@@ -59,26 +59,35 @@ do
 				echo "		<$device />" >> $model_config
 			fi
 			;;
+	  "D3")
+	    echo "		<!-- <$device /> -->" >> $model_config
+	    ;;
 		*)
-			ports_config=$ports_config" "$device
 			echo "		<$device />" >> $model_config
 			;;
 	esac
 
+  ports_config=$ports_config" "$device
 	echo "	</$port>" >> $model_config
 done
 
 
 sed -i "1c${ports_config}" $current_params
 
+# $1: is_active; $2: name;
+add_mems() {
+	if [[ "$1" = "0" ]]; then
+	  echo "	<!-- $2 -->" >> $model_config
+	else
+	  echo "	$2" >> $model_config
+  fi
+}
+
+add_mems "$(lsmod | grep -c mma845x)" "<accelerometer />"
+add_mems "$(lsmod | grep -c l3g42xxd)" "<gyroscope />"
+
 
 cat >> $model_config << EOF
-<!-- On-board sensors. -->
-	<!-- If model is not using those, they can be turned off to save system resources, by deleting them or
-		 commenting them out. -->
-	<accelerometer />
-	<gyroscope />
-
 	<!-- Optional modules -->
 	<gamepad />
 	<mailbox />
