@@ -64,6 +64,8 @@ const app = new Vue({
         gyroRange: "2000",
         accelFreq: "50",
         accelRange: "2G",
+		// Video stream
+		isStreamActive: false,
         // Success(Error) message
         dialogFlag: "waiting", // waiting ; fail ; success ; wrongInput
         xhrStatusPorts: "",
@@ -362,6 +364,38 @@ const app = new Vue({
             };
             xhr.send(`${!that.pppdEnabled} \n`);
         },
+
+        toggleStream() {
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", this.scriptPath + "toggle-video.sh");
+			xhr.setRequestHeader('Content-Type', 'text-plain');
+
+			var button1 = document.getElementById("streamButton1");
+            var button2 = document.getElementById("streamButton2");
+			var request;
+			if (this.isStreamActive) {
+			    request = "stop"
+            }
+			else {
+                request = "start"
+            }
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4) {
+                    button1.removeAttribute("disabled");
+                    button2.removeAttribute("disabled");
+					if (xhr.status >= 200 && xhr.status < 300) {
+                        app.isStreamActive = !app.isStreamActive;
+                    }
+				}
+				else {
+				    button1.setAttribute("disabled", 'disabled');
+                    button2.setAttribute("disabled", 'disabled');
+                }
+            }
+			;
+
+			xhr.send(`${request} \n`);
+		},
     }
 });
 

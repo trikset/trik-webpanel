@@ -122,10 +122,14 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" v-text="texts[lang]['port']" data-toggle="pill" href="#port">Ports</a>
                 </li>
-                <!--DO NOT TOUCH THIS COMMENT. GA don't work so we hide it for now -->
                 <li class="nav-item">
                     <a class="nav-link text-white" id="3" v-text="texts[lang]['mems']" data-toggle="pill" href="#ga">
                         MEMS
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" id="3" v-text="texts[lang]['videoStream']" data-toggle="pill" href="#video">
+                        Video stream
                     </a>
                 </li>
             </ul>
@@ -1106,6 +1110,34 @@
 
             </div>
 
+        </div>
+        <div class="tab-pane fade" id="video">
+            <div class="row">
+                <div class="mx-auto" style="width: 640px;">
+                    <div  v-if="isStreamActive">
+                        <img id="streamimage" class="img-thumbnail" src="http://10.0.40.32:8080/?action=stream">
+                    </div>
+                    <div v-else>
+                        <img class="img-thumbnail" src="images/trinity-chatsystem.png">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--<div class="col-sm-auto col-md-1"></div> -->
+                <div class="button-group mx-auto">
+                    <button type="button" class="btn btn-success btn-lg" @click="getSnapshot()">
+                        Get snapshot
+                    </button>
+                    <button v-if="isStreamActive"  id="streamButton1" type="button" class="btn btn-danger btn-lg" @click="toggleStream()">
+                        Stop stream
+                    </button>
+                    <button v-else id="streamButton2" type="button" class="btn btn-success btn-lg" @click="toggleStream()">
+                        Start stream
+                    </button>
+                </div>
+                <!-- <div class="col-sm-auto col-md-1"></div>-->
+            </div>
+            <!-- http://10.0.40.32:8080/?action=stream -->
         </div>
     </div>
 </div>
