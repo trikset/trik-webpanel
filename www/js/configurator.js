@@ -317,6 +317,7 @@ const app = new Vue({
             xhr.open("GET", this.scriptPath + "create-log.sh");
             xhr.setRequestHeader('Content-Type', 'text-plain');
 
+            var link = document.getElementById('logsLink');
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if ((xhr.status >= 200 && xhr.status < 300)) {
@@ -325,15 +326,17 @@ const app = new Vue({
                             return;
 
                         app.logsPath = xhr.responseText;
-
-                        var link = document.getElementById('logsLink');
                         var filename =`${app.logsPath}`.substr(`${app.logsPath}`.lastIndexOf('/') + 1);
 
                         link.setAttribute('href', 'logs/' + filename);
                         link.setAttribute('download', filename);
+                        link.removeAttribute('data-toggle');
                         link.click();
                     } else {
-                        //mb notification if load is impossible
+                        app.xhrStatusPorts = xhr.status;
+                        app.xhrStatusPortsText = xhr.statusText;
+                        link.setAttribute('data-toggle', 'modal');
+                        link.click();
                     }
                 }
             };
