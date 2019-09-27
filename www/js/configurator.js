@@ -366,13 +366,7 @@ const app = new Vue({
         },
 
         toggleStream() {
-			// var xhr = new XMLHttpRequest();
-			// xhr.open("POST", this.scriptPath + "toggle-video.sh");
-			// xhr.setRequestHeader('Content-Type', 'text-plain');
-
 			var stream = document.getElementById("streamImage");
-			var button1 = document.getElementById("streamButton1");
-            var button2 = document.getElementById("streamButton2");
 			var request;
 			if (this.isStreamActive) {
 			    request = "stop";
@@ -383,22 +377,6 @@ const app = new Vue({
                 request = "start"
             }
             this.isStreamActive = !this.isStreamActive;
-			// xhr.onreadystatechange = function () {
-			// 	if (xhr.readyState == 4) {
-            //         button1.removeAttribute("disabled");
-            //         button2.removeAttribute("disabled");
-			// 		if (xhr.status >= 200 && xhr.status < 300) {
-            //             app.isStreamActive = !app.isStreamActive;
-            //         }
-			// 	}
-			// 	else {
-			// 	    button1.setAttribute("disabled", 'disabled');
-            //         button2.setAttribute("disabled", 'disabled');
-            //     }
-            // }
-			// ;
-            //
-			// xhr.send(`${request} \n`);
 		},
 
         getSnapshot() {

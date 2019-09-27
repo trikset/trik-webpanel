@@ -1113,8 +1113,8 @@
         </div>
         <div class="tab-pane fade" id="video">
             <div class="row">
-                <div class="mx-auto" style="width: 320px;">
-                    <img id="streamImage" class="img-thumbnail" src="images/robotImage.jpg">
+                <div class="mx-auto" style="width: 640px;">
+                    <img id="streamImage" style="width: 640px;" class="img-thumbnail" src="images/robotImage.jpg">
                 </div>
             </div>
             <div class="row">
@@ -1123,10 +1123,10 @@
                     <button type="button" class="btn btn-success btn-lg" @click="getSnapshot()">
                         Get snapshot
                     </button>
-                    <button v-if="isStreamActive"  id="streamButton1" type="button" class="btn btn-danger btn-lg" @click="toggleStream()">
+                    <button v-if="isStreamActive" type="button" class="btn btn-danger btn-lg" @click="toggleStream()">
                         Stop stream
                     </button>
-                    <button v-else id="streamButton2" type="button" class="btn btn-success btn-lg" @click="toggleStream()">
+                    <button v-else type="button" class="btn btn-success btn-lg" @click="toggleStream()">
                         Start stream
                     </button>
                 </div>
