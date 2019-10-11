@@ -1113,8 +1113,9 @@
         </div>
         <div class="tab-pane fade" id="video">
             <div class="row">
-                <div class="mx-auto" style="width: 640px;">
-                    <img id="streamImage" style="width: 640px;" class="img-thumbnail" src="images/robotImage.jpg">
+                <div class="mx-auto" style="width: 640px; height: 480px;">
+                    <img id="streamImage" style="width: 640px; height: 480px;" class="img-thumbnail" src="images/robotImage.jpg"
+                        v-bind:alt="texts[lang]['streamUnavailable']">
                 </div>
             </div>
             <div class="row">
