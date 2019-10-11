@@ -1114,7 +1114,7 @@
         <div class="tab-pane fade" id="video">
             <div class="row">
                 <div class="mx-auto" style="width: 640px; height: 480px;">
-                    <img id="streamImage" style="width: 640px; height: 480px;" class="img-thumbnail" src="images/robotImage.jpg"
+                    <img id="streamImage" style="width: 640px; height: 480px;" class="img-thumbnail" src="images/plugStreamImage.jpg"
                         v-bind:alt="texts[lang]['streamUnavailable']">
                 </div>
             </div>
@@ -1122,13 +1122,13 @@
                 <!--<div class="col-sm-auto col-md-1"></div> -->
                 <div class="button-group mx-auto">
                     <button type="button" class="btn btn-success btn-lg" @click="getSnapshot()">
-                        Get snapshot
+                        {{ texts[lang]['getSnapshot'] }}
                     </button>
                     <button v-if="isStreamActive" type="button" class="btn btn-danger btn-lg" @click="toggleStream()">
-                        Stop stream
+                        {{ texts[lang]['stopStream'] }}
                     </button>
                     <button v-else type="button" class="btn btn-success btn-lg" @click="toggleStream()">
-                        Start stream
+                        {{ texts[lang]['startStream'] }}
                     </button>
                 </div>
                 <!-- <div class="col-sm-auto col-md-1"></div>-->
