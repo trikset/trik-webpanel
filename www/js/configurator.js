@@ -367,24 +367,17 @@ const app = new Vue({
 
         toggleStream() {
 			var stream = document.getElementById("streamImage");
-			var request;
 			if (this.isStreamActive) {
-			    request = "stop";
-                stream.setAttribute('src', 'images/robotImage.jpg')
+                stream.setAttribute('src', 'images/plugStreamImage.jpg')
             }
 			else {
                 stream.setAttribute('src', 'http://' + window.location.hostname + ':8080/?action=stream');
-                request = "start"
             }
             this.isStreamActive = !this.isStreamActive;
 		},
 
         getSnapshot() {
-            // var link = document.getElementById('snapshotLink');
             window.open('http://' + window.location.hostname + ':8080/?action=snapshot', '_blank');
-            // link.setAttribute('href', 'https://bugaga.ru/uploads/posts/2018-02/1517917230_podborka-2.jpg');//'http://' + window.location.hostname + ':8080/?action=snapshot');
-            // link.setAttribute('download', 'snapshot');
-            // link.click();
         },
     }
 });
