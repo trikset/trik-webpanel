@@ -64,6 +64,8 @@ const app = new Vue({
         gyroRange: "2000",
         accelFreq: "50",
         accelRange: "2G",
+		// Video stream
+		isStreamActive: false,
         // Success(Error) message
         dialogFlag: "waiting", // waiting ; fail ; success ; wrongInput
         xhrStatusPorts: "",
@@ -364,6 +366,21 @@ const app = new Vue({
                 }
             };
             xhr.send(`${!that.pppdEnabled} \n`);
+        },
+
+        toggleStream() {
+			var stream = document.getElementById("streamImage");
+			if (this.isStreamActive) {
+                stream.setAttribute('src', 'images/plugStreamImage.jpg')
+            }
+			else {
+                stream.setAttribute('src', 'http://' + window.location.hostname + ':8080/?action=stream');
+            }
+            this.isStreamActive = !this.isStreamActive;
+		},
+
+        getSnapshot() {
+            window.open('http://' + window.location.hostname + ':8080/?action=snapshot', '_blank');
         },
     }
 });
