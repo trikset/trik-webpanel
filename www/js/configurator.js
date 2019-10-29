@@ -79,7 +79,6 @@ const app = new Vue({
         if (language == 'ru') {
             this.changeLang('ru');
         }
-
         var xhr = new XMLHttpRequest();
         xhr.open("GET", this.scriptPath + "get-current.sh", false);
         xhr.setRequestHeader('Content-Type', 'text-plain');
@@ -130,6 +129,8 @@ const app = new Vue({
         this.accelRange = ag[2];
         this.pppdEnabled = (network[0] === "ON");
 
+		document.getElementById("streamImage").setAttribute('src',
+			'http://' + window.location.hostname + ':8080/?action=stream');
     },
     methods: {
         refreshDialogFlag() {
@@ -364,17 +365,6 @@ const app = new Vue({
             };
             xhr.send(`${!that.pppdEnabled} \n`);
         },
-
-        toggleStream() {
-			var stream = document.getElementById("streamImage");
-			if (this.isStreamActive) {
-                stream.setAttribute('src', 'images/plugStreamImage.jpg')
-            }
-			else {
-                stream.setAttribute('src', 'http://' + window.location.hostname + ':8080/?action=stream');
-            }
-            this.isStreamActive = !this.isStreamActive;
-		},
 
         getSnapshot() {
             window.open('http://' + window.location.hostname + ':8080/?action=snapshot', '_blank');

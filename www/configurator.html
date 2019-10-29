@@ -1114,24 +1114,9 @@
         <div class="tab-pane fade" id="video">
             <div class="row">
                 <div class="mx-auto" style="width: 640px; height: 480px;">
-                    <img id="streamImage" style="width: 640px; height: 480px;" class="img-thumbnail" src="images/plugStreamImage.jpg"
-                        v-bind:alt="texts[lang]['streamUnavailable']">
+                <img id="streamImage" style="width: 640px; height: 480px;" class="img-thumbnail" src="http://1.1.1.1"
+                     v-bind:alt="texts[lang]['streamUnavailable']" @click="getSnapshot()" onerror="this.src='images/plugStreamImage.jpg'">
                 </div>
-            </div>
-            <div class="row">
-                <!--<div class="col-sm-auto col-md-1"></div> -->
-                <div class="button-group mx-auto">
-                    <button type="button" class="btn btn-success btn-lg" @click="getSnapshot()">
-                        {{ texts[lang]['getSnapshot'] }}
-                    </button>
-                    <button v-if="isStreamActive" type="button" class="btn btn-danger btn-lg" @click="toggleStream()">
-                        {{ texts[lang]['stopStream'] }}
-                    </button>
-                    <button v-else type="button" class="btn btn-success btn-lg" @click="toggleStream()">
-                        {{ texts[lang]['startStream'] }}
-                    </button>
-                </div>
-                <!-- <div class="col-sm-auto col-md-1"></div>-->
             </div>
             <!-- http://10.0.40.32:8080/?action=stream -->
         </div>
