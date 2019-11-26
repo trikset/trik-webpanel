@@ -28,7 +28,7 @@ if [ "$REQUEST_METHOD" = "POST" ]; then
         else
             passphraseRes=$(echo -e "$passphraseRes" | grep -v ^$'\t\#')
             networkStr="${passphraseRes::-2}"
-            networkStr=$(printf "$networkStr\n\tpriority=%d\n}" $priority)
+            networkStr=$(printf "$networkStr\n\tpriority=%d\n}" "$priority")
             echo -e "$networkStr" >> /etc/wpa_supplicant.conf
             if [ "$?" = "0" ]; then
                 sync

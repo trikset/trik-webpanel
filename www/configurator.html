@@ -133,7 +133,13 @@
                         Video stream
                     </a>
                 </li>
+				<li class="nav-item">
+					<a class="nav-link text-white" id="5" v-text="texts[lang]['logsTab']" data-toggle="pill" href="#logsTab">
+						Logs tab
+					</a>
+				</li>
             </ul>
+
 
 
         </div>
@@ -1127,8 +1133,13 @@
                      v-bind:alt="texts[lang]['streamUnavailable']" @click="getSnapshot()" onerror="this.src='images/plugStreamImage.png'">
                 </div>
             </div>
-            <!-- http://10.0.40.32:8080/?action=stream -->
         </div>
+
+		<div class="tab-pane fade" id="logsTab">
+			<div class="embed-responsive embed-responsive-1by1 nav-cera-style">
+				<iframe id="logsFrame" class="embed-responsive-item" src="https://dl.trikset.com" align="left"></iframe>
+			</div>
+		</div>
     </div>
 </div>
 

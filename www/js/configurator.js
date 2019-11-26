@@ -79,18 +79,25 @@ const app = new Vue({
         if (language == 'ru') {
             this.changeLang('ru');
         }
+        document.getElementById("streamImage").setAttribute('src',
+            'http://' + window.location.hostname + ':8080/?action=stream');
+        var logsFrame = document.getElementById("logsFrame");
+        logsFrame.setAttribute('src', 'http://' + window.location.hostname + '/logs/');
+
         var xhr = new XMLHttpRequest();
         xhr.open("GET", this.scriptPath + "get-current.sh", false);
         xhr.setRequestHeader('Content-Type', 'text-plain');
         xhr.send();
-        var x = "asdas";
+        var ports;
+        var ag;
+        var network;
         if (!(xhr.status >= 200 && xhr.status < 300)) {
         } else {
             var text = xhr.responseText;
             text = text.split('\n');
-            var ports = text[0].split(' ');
-            var ag = text[1].split(' ');
-            var network = text[2].split(' ');
+            ports = text[0].split(' ');
+            ag = text[1].split(' ');
+            network = text[2].split(' ');
         }
         this.s1 = ports[0];
         this.s2 = ports[1];
@@ -128,9 +135,6 @@ const app = new Vue({
         this.accelFreq = ag[1];
         this.accelRange = ag[2];
         this.pppdEnabled = (network[0] === "ON");
-
-		document.getElementById("streamImage").setAttribute('src',
-			'http://' + window.location.hostname + ':8080/?action=stream');
     },
     methods: {
         refreshDialogFlag() {
