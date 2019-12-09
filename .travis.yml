@@ -8,13 +8,15 @@ env:
 install:
   - wget -qO- "https://storage.googleapis.com/shellcheck/shellcheck-${scversion?}.linux.x86_64.tar.xz" | tar -xJv
 script:
-  - export PATH=$(readlink -f "shellcheck-${scversion}"):$PATH
-  - shellcheck --version
-  - shellcheck --help || true
+  - stage: export
+    export PATH=$(readlink -f "shellcheck-${scversion}"):$PATH
+  - stage: version
+    shellcheck --version
+    shellcheck --help || true
 #TODO: 
 # 1. add `-s sh`
 # 2. remove `-e 2154` and other disabled warnings
 # 3. add `-o all`
 # 4. change to `-S style`
-
-  - 'find . -executable -type f  -not -path "./.git*" -not -path "./shellcheck*" | xargs shellcheck -S style -W 20 -f gcc --color=always'
+  - stage: execute
+    'find . -executable -type f  -not -path "./.git*" -not -path "./shellcheck*" | xargs shellcheck -S style -W 20 -f gcc --color=always'
