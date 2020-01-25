@@ -13,3 +13,22 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License
 
+./notifyThenKill.sh "$(basename -- "$0")" $$
+
+IMAGES_PATH=/home/root/trik/images
+FILE_NAME=all_images
+
+rm -f $IMAGES_PATH/$FILE_NAME.tar.gz
+tar -zcf $IMAGES_PATH/$FILE_NAME.tar.gz $IMAGES_PATH/
+FILE_PATH=$IMAGES_PATH/$FILE_NAME.tar.gz
+SIZE=${#FILE_PATH}
+
+cat << EOF
+HTTP/1.1 201 Modified
+Connection: close
+Content-Type: text/plain, charset=us-ascii
+Content-length: ${SIZE}
+
+EOF
+
+echo "$FILE_PATH"
