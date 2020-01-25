@@ -84,6 +84,12 @@ const app = new Vue({
         var logsFrame = document.getElementById("logsFrame");
         logsFrame.setAttribute('src', 'http://' + window.location.hostname + '/logs/');
 
+        var logsFrame = document.getElementById("scriptsFrame");
+        logsFrame.setAttribute('src', 'http://' + window.location.hostname + '/scripts/');
+
+        var logsFrame = document.getElementById("imagesFrame");
+        logsFrame.setAttribute('src', 'http://' + window.location.hostname + '/images/');
+
         var xhr = new XMLHttpRequest();
         xhr.open("GET", this.scriptPath + "get-current.sh", false);
         xhr.setRequestHeader('Content-Type', 'text-plain');

@@ -135,9 +135,19 @@
                 </li>
 				<li class="nav-item">
 					<a class="nav-link text-white" id="5" v-text="texts[lang]['logsTab']" data-toggle="pill" href="#logsTab">
-						Logs tab
+						Logs
 					</a>
 				</li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" id="6" v-text="texts[lang]['scriptsTab']" data-toggle="pill" href="#scriptsTab">
+                        User scripts
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" id="7" v-text="texts[lang]['imagesTab']" data-toggle="pill" href="#imagesTab">
+                        Images
+                    </a>
+                </li>
             </ul>
 
 
@@ -1140,6 +1150,18 @@
 				<iframe id="logsFrame" class="embed-responsive-item" src="https://dl.trikset.com" align="left"></iframe>
 			</div>
 		</div>
+
+        <div class="tab-pane fade" id="scriptsTab">
+            <div class="embed-responsive embed-responsive-1by1 nav-cera-style">
+                <iframe id="scriptsFrame" class="embed-responsive-item" src="https://dl.trikset.com" align="left"></iframe>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="imagesTab">
+            <div class="embed-responsive embed-responsive-1by1 nav-cera-style">
+                <iframe id="imagesFrame" class="embed-responsive-item" src="https://dl.trikset.com" align="left"></iframe>
+            </div>
+        </div>
     </div>
 </div>
 
