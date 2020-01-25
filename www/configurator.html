@@ -1158,6 +1158,11 @@
         </div>
 
         <div class="tab-pane fade" id="imagesTab">
+            <a id="imagesLink" data-target="#logsErrorDialog"></a>
+            <button type="button" class="btn btn-secondary layer2 main-color-green"
+                    data-toggle="modal" data-target="#DefaultPortsDialog" @click="downloadAllImages()">{{
+                texts[lang]['downloadAll'] }}
+            </button>
             <div class="embed-responsive embed-responsive-1by1 nav-cera-style">
                 <iframe id="imagesFrame" class="embed-responsive-item" src="https://dl.trikset.com" align="left"></iframe>
             </div>
