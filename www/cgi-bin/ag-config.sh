@@ -20,7 +20,7 @@ read -r params
 ACCELEROMETER_PATH=/sys/class/misc/mma845x/
 GYROSCOPE_PATH=/sys/class/misc/l3g42xxd/
 OPTIONS=/etc/default/trik/mems_options.sh
-MODEL_CONFIG=/home/root/trik/model-config.xml
+MODEL_CONFIG=$(realpath /home/root/trik/model-config.xml)
 
 # Set device parameters in $OPTIONS
 # $1: device
@@ -32,11 +32,11 @@ set_params() {
 }
 
 comment_mems() {
-  sed -i "s/<$1 \/>/<\!-- <$1 \/> -->/" $MODEL_CONFIG
+  sed -i "s/<$1 \/>/<\!-- <$1 \/> -->/" "$MODEL_CONFIG"
 }
 
 uncomment_mems() {
-  sed -i "s/<\!-- <$1 \/> -->/<$1 \/>/" $MODEL_CONFIG
+  sed -i "s/<\!-- <$1 \/> -->/<$1 \/>/" "$MODEL_CONFIG"
 }
 gyro_name="gyroscope"
 accel_name="accelerometer"

@@ -19,17 +19,21 @@ read -r params
 
 set "$params"
 
-settings=/home/root/trik/localSettings.ini
+settings=$(realpath /home/root/trik/localSettings.ini)
 
-if ! grep -q hullNumber $settings ; then
-    echo "hullNumber=" >> $settings
-    echo "localIp=$(hostname -i)"
-    echo "server=" >> $settings
-    echo "serverPort=8889" >> $settings
-fi
+[ -r "$settings" ] || touch "$settings"
 
-sed -i "/hullNumber=/c hullNumber=$1" $settings
-sed -i "/server=/c server=$2" $settings
+function setNew() {
+   if ! grep -q "$1 *=" "$settings" ; then
+     echo "$1=$2" >> "$settings"
+   else
+     sed -i "/$1 *=/c $1=$2" "$settings"
+   fi
+}
+setNew hullNumber "$1"
+setNew localIp "$(hostname -i)"
+setNew server "$2"
+setNew serverPort 8889
 
 echo "HTTP/1.1 200 Modified"
 
