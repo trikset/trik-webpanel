@@ -101,7 +101,7 @@ cat >> $model_config << EOF
 </config>
 EOF
 
-cp $model_config /home/root/trik/
+cp "$model_config" "$(realpath /home/root/trik/model-config.xml)"
 
 echo "HTTP/1.1 201 Modified"
 
