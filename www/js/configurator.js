@@ -397,7 +397,7 @@ const app = new Vue({
                             return;
 
                         app.downloadFilePath = xhr.responseText;
-                        var filename =`${app.downloadFilePath}`.substr(`${app.downloadFilePath}`.lastIndexOf('/') + 1);
+                        var filename =`${app.downloadFilePath}`.substr(`${app.downloadFilePath}`.lastIndexOf("/") + 1);
 
                         link.setAttribute("href", "logs/" + filename);
                         link.setAttribute("download", filename);
