@@ -414,6 +414,26 @@ const app = new Vue({
 
             xhr.send();
         },
+
+        deleteAllImages() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", this.scriptPath + "delete-images.sh");
+            xhr.setRequestHeader("Content-Type", "text-plain");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300)) {
+                        app.dialogFlag = "success";
+                    } else {
+                        app.xhrStatusPorts = xhr.status;
+                        app.xhrStatusPortsText = xhr.statusText;
+                        app.dialogFlag = "fail";
+                    }
+                }
+            };
+
+            xhr.send();
+        },
     }
 });
 

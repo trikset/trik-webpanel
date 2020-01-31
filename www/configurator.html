@@ -1163,6 +1163,11 @@
                     data-toggle="modal" data-target="#DefaultPortsDialog" @click="downloadAllImages()">{{
                 texts[lang]['downloadAll'] }}
             </button>
+            <button type="button" class="btn btn-danger layer2 main-color-red"
+                    data-toggle="modal" data-target="#DefaultPortsDialog" @click="deleteAllImages()">{{
+                texts[lang]['deleteAll'] }}
+            </button>
+            <p></p>
             <div class="embed-responsive embed-responsive-1by1 nav-cera-style">
                 <iframe id="imagesFrame" class="embed-responsive-item" src="https://dl.trikset.com" align="left"></iframe>
             </div>
