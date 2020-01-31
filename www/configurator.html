@@ -1158,16 +1158,112 @@
         </div>
 
         <div class="tab-pane fade" id="imagesTab">
-            <a id="imagesLink" data-target="#logsErrorDialog"></a>
             <button type="button" class="btn btn-secondary layer2 main-color-green"
-                    data-toggle="modal" data-target="#DefaultPortsDialog" @click="downloadAllImages()">{{
+                    data-toggle="modal" data-target="#DownloadImagesDialog" @click="downloadAllImages()" >{{
                 texts[lang]['downloadAll'] }}
             </button>
             <button type="button" class="btn btn-danger layer2 main-color-red"
-                    data-toggle="modal" data-target="#DefaultPortsDialog" @click="deleteAllImages()">{{
+                    data-toggle="modal" data-target="#DeleteImagesDialog" @click="refreshDialogFlag()">{{
                 texts[lang]['deleteAll'] }}
             </button>
             <p></p>
+
+            <div class="modal fade" id="DownloadImagesDialog" tabindex="-1" role="dialog" aria-labelledby="DownloadImagesDialog"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" v-if="dialogFlag === 'waiting'">{{ texts[lang]['download'] }}</h5>
+                            <h5 class="modal-title" v-else-if="dialogFlag === 'fail'">{{ texts[lang]['fail'] }}</h5>
+                            <h5 class="modal-title" v-else-if="dialogFlag === 'success'">{{ texts[lang]['saved'] }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div v-if="dialogFlag === 'waiting'">
+                                {{ texts[lang]['downloadIsGoing'] }}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{
+                                        texts[lang]['no']
+                                        }}
+                                    </button>
+                                </div>
+                            </div>
+                            <div v-else-if="dialogFlag === 'fail'">
+                                {{ texts[lang]['codeError'] }} {{xhrStatusPorts}} {{xhrStatusPortsText}} <br>
+                                {{ texts[lang]['tryNextTime'] }}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">
+                                        {{
+                                        texts[lang]['ok'] }}
+                                    </button>
+                                </div>
+                            </div>
+                            <div v-else-if="dialogFlag === 'success'">
+                                {{ texts[lang]['success'] }}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">
+                                        {{
+                                        texts[lang]['ok'] }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="DeleteImagesDialog" tabindex="-1" role="dialog" aria-labelledby="DeleteImagesDialog"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" v-if="dialogFlag === 'waiting'">{{ texts[lang]['confirm'] }}</h5>
+                            <h5 class="modal-title" v-else-if="dialogFlag === 'fail'">{{ texts[lang]['fail'] }}</h5>
+                            <h5 class="modal-title" v-else-if="dialogFlag === 'success'">{{ texts[lang]['saved'] }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div v-if="dialogFlag === 'waiting'">
+                                {{ texts[lang]['confirmDeleteImages'] }}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{
+                                        texts[lang]['no']
+                                        }}
+                                    </button>
+                                    <button type="button" class="btn btn-success" @click="deleteAllImages()">
+                                        {{
+                                        texts[lang]['yes'] }}
+                                    </button>
+                                </div>
+                            </div>
+                            <div v-else-if="dialogFlag === 'fail'">
+                                {{ texts[lang]['codeError'] }} {{xhrStatusPorts}} {{xhrStatusPortsText}} <br>
+                                {{ texts[lang]['tryNextTime'] }}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">
+                                        {{
+                                        texts[lang]['ok'] }}
+                                    </button>
+                                </div>
+                            </div>
+                            <div v-else-if="dialogFlag === 'success'">
+                                {{ texts[lang]['savedSettings'] }}
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal">
+                                        {{
+                                        texts[lang]['ok'] }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="embed-responsive embed-responsive-1by1 nav-cera-style">
                 <iframe id="imagesFrame" class="embed-responsive-item" src="https://dl.trikset.com" align="left"></iframe>
             </div>
