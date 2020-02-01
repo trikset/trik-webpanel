@@ -384,7 +384,7 @@ const app = new Vue({
         },
 
         downloadAllImages() {
-            app.refreshDialogFlag()
+            app.refreshDialogFlag();
             var xhr = new XMLHttpRequest();
             xhr.open("GET", this.scriptPath + "archive-images.sh");
             xhr.setRequestHeader("Content-Type", "text-plain");
@@ -437,5 +437,4 @@ const app = new Vue({
         },
     }
 });
-
 
