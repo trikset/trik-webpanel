@@ -71,7 +71,7 @@ const app = new Vue({
         xhrStatusPorts: "",
         xhrStatusPortsText: "",
         // Other (not front usage)
-        logsPath: "",
+        downloadFilePath: "",
         scriptPath: "/cgi-bin/",
     },
     created: function () {
@@ -82,11 +82,17 @@ const app = new Vue({
         document.getElementById("streamImage").setAttribute('src',
             'http://' + window.location.hostname + ':8080/?action=stream');
         var logsFrame = document.getElementById("logsFrame");
-        logsFrame.setAttribute('src', 'http://' + window.location.hostname + '/logs/');
+        logsFrame.setAttribute("src", "http://" + window.location.hostname + "/logs/");
+
+        var scriptsFrame = document.getElementById("scriptsFrame");
+        scriptsFrame.setAttribute("src", "http://" + window.location.hostname + "/scripts/");
+
+        var imagesFrame = document.getElementById("imagesFrame");
+        imagesFrame.setAttribute("src", "http://" + window.location.hostname + "/trikimages/");
 
         var xhr = new XMLHttpRequest();
         xhr.open("GET", this.scriptPath + "get-current.sh", false);
-        xhr.setRequestHeader('Content-Type', 'text-plain');
+        xhr.setRequestHeader("Content-Type", "text-plain");
         xhr.send();
         var ports;
         var ag;
@@ -332,8 +338,8 @@ const app = new Vue({
                         if (xhr.status == 204)
                             return;
 
-                        app.logsPath = xhr.responseText;
-                        var filename =`${app.logsPath}`.substr(`${app.logsPath}`.lastIndexOf('/') + 1);
+                        app.downloadFilePath = xhr.responseText;
+                        var filename =`${app.downloadFilePath}`.substr(`${app.downloadFilePath}`.lastIndexOf("/") + 1);
 
                         link.setAttribute('href', 'logs/' + filename);
                         link.setAttribute('download', filename);
@@ -376,7 +382,59 @@ const app = new Vue({
         getSnapshot() {
             window.open('http://' + window.location.hostname + ':8080/?action=snapshot', '_blank');
         },
+
+        downloadAllImages() {
+            app.refreshDialogFlag();
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", this.scriptPath + "archive-images.sh");
+            xhr.setRequestHeader("Content-Type", "text-plain");
+
+            var link = document.getElementById("imagesLink");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300)) {
+                        //If that was notify-sender
+                        if (xhr.status == 204)
+                            return;
+
+                        app.downloadFilePath = xhr.responseText;
+                        var filename =`${app.downloadFilePath}`.substr(`${app.downloadFilePath}`.lastIndexOf("/") + 1);
+
+                        link.setAttribute("href", "trikimages/" + filename);
+                        link.setAttribute("download", filename);
+                        link.removeAttribute("data-toggle");
+                        link.click();
+                    } else {
+                        app.xhrStatusPorts = xhr.status;
+                        app.xhrStatusPortsText = xhr.statusText;
+                        link.setAttribute("data-toggle", "modal");
+                        link.click();
+                    }
+                }
+            };
+
+            xhr.send();
+        },
+
+        deleteAllImages() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", this.scriptPath + "delete-images.sh");
+            xhr.setRequestHeader("Content-Type", "text-plain");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    if ((xhr.status >= 200 && xhr.status < 300)) {
+                        app.dialogFlag = "success";
+                    } else {
+                        app.xhrStatusPorts = xhr.status;
+                        app.xhrStatusPortsText = xhr.statusText;
+                        app.dialogFlag = "fail";
+                    }
+                }
+            };
+
+            xhr.send();
+        },
     }
 });
-
 
