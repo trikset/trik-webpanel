@@ -88,7 +88,7 @@ const app = new Vue({
         scriptsFrame.setAttribute("src", "http://" + window.location.hostname + "/scripts/");
 
         var imagesFrame = document.getElementById("imagesFrame");
-        imagesFrame.setAttribute("src", "http://" + window.location.hostname + "/images/");
+        imagesFrame.setAttribute("src", "http://" + window.location.hostname + "/trikimages/");
 
         var xhr = new XMLHttpRequest();
         xhr.open("GET", this.scriptPath + "get-current.sh", false);
