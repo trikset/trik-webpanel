@@ -400,7 +400,7 @@ const app = new Vue({
                         app.downloadFilePath = xhr.responseText;
                         var filename =`${app.downloadFilePath}`.substr(`${app.downloadFilePath}`.lastIndexOf("/") + 1);
 
-                        link.setAttribute("href", "logs/" + filename);
+                        link.setAttribute("href", "trikimages/" + filename);
                         link.setAttribute("download", filename);
                         link.removeAttribute("data-toggle");
                         link.click();
