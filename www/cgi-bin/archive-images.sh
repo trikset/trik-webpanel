@@ -19,7 +19,7 @@ IMAGES_PATH=/home/root/trik/images
 FILE_NAME=all_images
 
 rm -f $IMAGES_PATH/$FILE_NAME.tar.gz
-tar -zcf $IMAGES_PATH/$FILE_NAME.tar.gz $IMAGES_PATH/
+tar -zcf $IMAGES_PATH/$FILE_NAME.tar.gz -C $IMAGES_PATH/ .
 FILE_PATH=$IMAGES_PATH/$FILE_NAME.tar.gz
 SIZE=${#FILE_PATH}
 
