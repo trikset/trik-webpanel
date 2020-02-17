@@ -17,7 +17,8 @@ read -r params
 
 ./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
-set "$params"
+# shellcheck disable=SC2086
+set $params
 
 settings=$(realpath /home/root/trik/localSettings.ini)
 
