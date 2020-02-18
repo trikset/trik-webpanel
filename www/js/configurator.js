@@ -53,10 +53,10 @@ const app = new Vue({
         m4: "motor350",
         video1: "lineSensor",
         video2: "photo",
-        e1State: "true",
+        e1State: "false",
         e2State: "true",
+        e3State: "false",
         e4State: "true",
-        e3State: "true",
         // Gyroscope and accelerometer
         gyroscope: "ON",
         accelerometer: "ON",
@@ -219,9 +219,9 @@ const app = new Vue({
             this.m4 = "motor350";
             this.video1 = "lineSensor";
             this.video2 = "photo";
-            this.e1State = "true";
+            this.e1State = "false";
             this.e2State = "true";
-            this.e3State = "true";
+            this.e3State = "false";
             this.e4State = "true";
         },
 
