@@ -2,7 +2,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/trikset/trik-webpanel/badge/master)](https://www.codefactor.io/repository/github/trikset/trik-webpanel/overview/master)
 
 
-# Веб-конфигуратор [ТРИК](https://github.com/trikset)
+# Веб-интерфейс контроллера [ТРИК](https://github.com/trikset)
 
 Избавляет пользователя от сложного конфигурирования контроллера с использованием ssh, предоставляя удобный веб-интерфейс.
 

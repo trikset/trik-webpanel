@@ -13,11 +13,11 @@
    limitations under the License */
 
 const app = new Vue({
-    el: '#app',
+    el: "#app",
     data: {
         // Top menu
         texts: window.translations,
-        lang: 'en',
+        lang: "en",
         buttonChangeState: "false",
         buttonChangeLanguage: "",
         // Network
@@ -75,9 +75,9 @@ const app = new Vue({
         scriptPath: "/cgi-bin/",
     },
     created: function () {
-        var language = window.navigator.userLanguage || window.navigator.language;
-        if (language == 'ru') {
-            this.changeLang('ru');
+        var isRuLanguage = window.navigator.language.slice(0, 2).includes("ru");
+        if (isRuLanguage) {
+            this.changeLang("ru");
         }
         document.getElementById("streamImage").setAttribute('src',
             'http://' + window.location.hostname + ':8080/?action=stream');
