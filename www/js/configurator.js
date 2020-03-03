@@ -148,7 +148,7 @@ const app = new Vue({
         },
 
         defaultPostXHR(script, params) {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open("POST", app.scriptPath + script);
             xhr.setRequestHeader('Content-Type', 'text-plain');
 
@@ -168,8 +168,8 @@ const app = new Vue({
         },
 
         getPorts() {
-            params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} \n`
-            defaultPostXHR("config-writer.sh", params);
+            let params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} \n`
+            app.defaultPostXHR("config-writer.sh", params);
         },
 
         changeLang(lang) {
@@ -177,8 +177,8 @@ const app = new Vue({
         },
 
         getGA() {
-            params = `${this.accelerometer} ${this.accelFreq} ${this.accelRange} ${this.gyroscope} ${this.gyroFreq} ${this.gyroRange} \n`;
-            defaultPostXHR("ag-config.sh", params);
+            let params = `${this.accelerometer} ${this.accelFreq} ${this.accelRange} ${this.gyroscope} ${this.gyroFreq} ${this.gyroRange} \n`;
+            app.defaultPostXHR("ag-config.sh", params);
         },
 
         defaultPorts() {
@@ -223,8 +223,8 @@ const app = new Vue({
         },
 
         editHostname() {
-            params = `${this.hostName} \n`;
-            defaultPostXHR("rename.sh", params);
+            let params = `${this.hostName} \n`;
+            app.defaultPostXHR("rename.sh", params);
         },
 
         submitNewWiFi() {
@@ -268,7 +268,7 @@ const app = new Vue({
                 this.leaderIP.search(/^([0-9]{1,3}[\.]){3}[0-9]{1,3}$/) === -1 )
                 this.dialogFlag = "wrongInput";
             else {
-                defaultPostXHR("hull-config.sh", `${this.hullNumber} ${this.leaderIP}\n`);
+                app.defaultPostXHR("hull-config.sh", `${this.hullNumber} ${this.leaderIP}\n`);
             }
         },
 
@@ -340,7 +340,7 @@ const app = new Vue({
 
         downloadAllImages() {
             app.refreshDialogFlag();
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open("GET", this.scriptPath + "archive-images.sh");
             xhr.setRequestHeader("Content-Type", "text-plain");
 
@@ -372,11 +372,11 @@ const app = new Vue({
         },
 
         deleteAllImages() {
-            defaultPostXHR("delete-images.sh", ``);
+            app.defaultPostXHR("delete-images.sh", ``);
         },
 
         createScreenshot() {
-            defaultPostXHR("do-screenshot.sh", ``);
+            app.defaultPostXHR("do-screenshot.sh", ``);
         },
     }
 });
