@@ -168,7 +168,7 @@ const app = new Vue({
         },
 
         getPorts() {
-            let params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} \n`
+            let params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} \n`;
             app.defaultPostXHR("config-writer.sh", params);
         },
 
@@ -372,11 +372,11 @@ const app = new Vue({
         },
 
         deleteAllImages() {
-            app.defaultPostXHR("delete-images.sh", ``);
+            app.defaultPostXHR("delete-images.sh", "");
         },
 
         createScreenshot() {
-            app.defaultPostXHR("do-screenshot.sh", ``);
+            app.defaultPostXHR("do-screenshot.sh", "");
         },
     }
 });
