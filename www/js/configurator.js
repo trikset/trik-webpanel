@@ -157,12 +157,12 @@ const app = new Vue({
                 if (xhr.readyState == 4) {
                     if ((xhr.status >= 200 && xhr.status < 300)) {
                         app.dialogFlag = "success";
-                        onSuccessFunction()
+                        onSuccessFunction();
                     } else {
                         app.xhrStatusPorts = xhr.status;
                         app.xhrStatusPortsText = xhr.statusText;
                         app.dialogFlag = "fail";
-                        onFailFunction()
+                        onFailFunction();
                     }
                 }
             };
@@ -380,15 +380,15 @@ const app = new Vue({
 
         createScreenshot() {
             app.defaultPostXHR("do-screenshot.sh", ""
-                , ()=>{
+                , () => {
                     var button = document.getElementById("makeScreenshotButton");
                     button.removeAttribute("disabled");
                 }
-                , ()=>{
+                , () => {
                     var button = document.getElementById("makeScreenshotButton");
                     button.removeAttribute("disabled");
                 }
-                , ()=>{
+                , () => {
                     var button = document.getElementById("makeScreenshotButton");
                     button.setAttribute("disabled", "disabled");
                 }

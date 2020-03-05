@@ -28,7 +28,7 @@ window.translations = {
         'confirmDownloadImages': 'Загрузить все изображения?',
         'confirmOffer': 'Вы действительно хотите сохранить настройки?',
         'confirmReboot': 'Вы действительно хотите сохранить настройки? (контроллер перезагрузится)',
-        'createScreenshot': 'Снимок экрана',
+        'createScreenshot': 'Сделать снимок экрана',
         'default': 'Стандартные настройки',
         'deleteAll': 'Удалить всё',
         'develop': 'В разработке',

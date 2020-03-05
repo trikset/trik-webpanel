@@ -17,9 +17,9 @@
 
 IMAGES_PATH=/home/root/trik/images
 
-SCREENSHOT_COUNT=$(ls $IMAGES_PATH | grep -c "screenshot")
-SCREENSHOT_NAME="screenshot$SCREENSHOT_COUNT.png"
-fbgrab $SCREENSHOT_NAME
-mv $SCREENSHOT_NAME $IMAGES_PATH/$SCREENSHOT_NAME
+SCREENSHOT_COUNT=$(find "$IMAGES_PATH"/ -name "screen*" | wc -l)
+SCREENSHOT_NAME="screenshot_$SCREENSHOT_COUNT.png"
+fbgrab "$SCREENSHOT_NAME"
+mv "$SCREENSHOT_NAME" "$IMAGES_PATH/$SCREENSHOT_NAME"
 
 echo "HTTP/1.1 201 Modified"
