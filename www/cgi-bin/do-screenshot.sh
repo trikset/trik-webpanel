@@ -16,7 +16,10 @@
 ./notifyThenKill.sh "$(basename -- "$0")" $$
 
 IMAGES_PATH=/home/root/trik/images
-fbgrab screenshot.png
-mv screenshot.png $IMAGES_PATH/screenshot.png
+
+SCREENSHOT_COUNT=$(ls $IMAGES_PATH | grep -c "screenshot")
+SCREENSHOT_NAME="screenshot$SCREENSHOT_COUNT.png"
+fbgrab $SCREENSHOT_NAME
+mv $SCREENSHOT_NAME $IMAGES_PATH/$SCREENSHOT_NAME
 
 echo "HTTP/1.1 201 Modified"
