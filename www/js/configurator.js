@@ -147,19 +147,22 @@ const app = new Vue({
             this.dialogFlag = "waiting";
         },
 
-        defaultPostXHR(script, params) {
+        defaultPostXHR(script, params, onSuccessFunction = Function
+                       , onFailFunction= Function, onWaitFunction= Function) {
             const xhr = new XMLHttpRequest();
             xhr.open("POST", app.scriptPath + script);
             xhr.setRequestHeader('Content-Type', 'text-plain');
-
+            onWaitFunction();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if ((xhr.status >= 200 && xhr.status < 300)) {
                         app.dialogFlag = "success";
+                        onSuccessFunction()
                     } else {
                         app.xhrStatusPorts = xhr.status;
                         app.xhrStatusPortsText = xhr.statusText;
                         app.dialogFlag = "fail";
+                        onFailFunction()
                     }
                 }
             };
@@ -376,7 +379,20 @@ const app = new Vue({
         },
 
         createScreenshot() {
-            app.defaultPostXHR("do-screenshot.sh", "");
+            app.defaultPostXHR("do-screenshot.sh", ""
+                , ()=>{
+                    var button = document.getElementById("makeScreenshotButton");
+                    button.removeAttribute("disabled");
+                }
+                , ()=>{
+                    var button = document.getElementById("makeScreenshotButton");
+                    button.removeAttribute("disabled");
+                }
+                , ()=>{
+                    var button = document.getElementById("makeScreenshotButton");
+                    button.setAttribute("disabled", "disabled");
+                }
+                );
         },
     }
 });
