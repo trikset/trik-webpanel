@@ -147,21 +147,22 @@ const app = new Vue({
             this.dialogFlag = "waiting";
         },
 
-        getPorts() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", this.scriptPath + "config-writer.sh");
+        defaultPostXHR(script, params, onSuccessFunction = Function
+                       , onFailFunction= Function, onWaitFunction= Function) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", app.scriptPath + script);
             xhr.setRequestHeader('Content-Type', 'text-plain');
-
-            params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} \n`
-
+            onWaitFunction();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if ((xhr.status >= 200 && xhr.status < 300)) {
                         app.dialogFlag = "success";
+                        onSuccessFunction();
                     } else {
                         app.xhrStatusPorts = xhr.status;
                         app.xhrStatusPortsText = xhr.statusText;
                         app.dialogFlag = "fail";
+                        onFailFunction();
                     }
                 }
             };
@@ -169,28 +170,18 @@ const app = new Vue({
             xhr.send(params);
         },
 
+        getPorts() {
+            let params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} \n`;
+            app.defaultPostXHR("config-writer.sh", params);
+        },
+
         changeLang(lang) {
             this.lang = lang;
         },
 
         getGA() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", this.scriptPath + "ag-config.sh");
-            xhr.setRequestHeader('Content-Type', 'text-plain');
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    if ((xhr.status >= 200 && xhr.status < 300)) {
-                        app.dialogFlag = "success";
-                    } else {
-                        app.xhrStatusPorts = xhr.status;
-                        app.xhrStatusPortsText = xhr.statusText;
-                        app.dialogFlag = "fail";
-                    }
-                }
-            };
-
-            xhr.send(`${this.accelerometer} ${this.accelFreq} ${this.accelRange} ${this.gyroscope} ${this.gyroFreq} ${this.gyroRange} \n`);
+            let params = `${this.accelerometer} ${this.accelFreq} ${this.accelRange} ${this.gyroscope} ${this.gyroFreq} ${this.gyroRange} \n`;
+            app.defaultPostXHR("ag-config.sh", params);
         },
 
         defaultPorts() {
@@ -235,23 +226,8 @@ const app = new Vue({
         },
 
         editHostname() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", this.scriptPath + "rename.sh");
-            xhr.setRequestHeader('Content-Type', 'text-plain');
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    if ((xhr.status >= 200 && xhr.status < 300)) {
-                        app.dialogFlag = "success";
-                    } else {
-                        app.xhrStatusPorts = xhr.status;
-                        app.xhrStatusPortsText = xhr.statusText;
-                        app.dialogFlag = "fail";
-                    }
-                }
-            };
-            xhr.send(`${this.hostName} \n`);
-            //this.hostName = "";
+            let params = `${this.hostName} \n`;
+            app.defaultPostXHR("rename.sh", params);
         },
 
         submitNewWiFi() {
@@ -295,25 +271,7 @@ const app = new Vue({
                 this.leaderIP.search(/^([0-9]{1,3}[\.]){3}[0-9]{1,3}$/) === -1 )
                 this.dialogFlag = "wrongInput";
             else {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", this.scriptPath + "hull-config.sh");
-                xhr.setRequestHeader('Content-Type', 'text-plain');
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4) {
-                        if ((xhr.status >= 200 && xhr.status < 300)) {
-                            app.dialogFlag = "success";
-                        } else {
-                            app.xhrStatusPorts = xhr.status;
-                            app.xhrStatusPortsText = xhr.statusText;
-                            app.dialogFlag = "fail";
-                        }
-                    }
-                };
-
-                xhr.send(`${this.hullNumber} ${this.leaderIP}\n`);
-                //this.hullNumber = "";
-                //this.leaderIP = "";
+                app.defaultPostXHR("hull-config.sh", `${this.hullNumber} ${this.leaderIP}\n`);
             }
         },
 
@@ -385,7 +343,7 @@ const app = new Vue({
 
         downloadAllImages() {
             app.refreshDialogFlag();
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.open("GET", this.scriptPath + "archive-images.sh");
             xhr.setRequestHeader("Content-Type", "text-plain");
 
@@ -417,23 +375,24 @@ const app = new Vue({
         },
 
         deleteAllImages() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", this.scriptPath + "delete-images.sh");
-            xhr.setRequestHeader("Content-Type", "text-plain");
+            app.defaultPostXHR("delete-images.sh", "");
+        },
 
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4) {
-                    if ((xhr.status >= 200 && xhr.status < 300)) {
-                        app.dialogFlag = "success";
-                    } else {
-                        app.xhrStatusPorts = xhr.status;
-                        app.xhrStatusPortsText = xhr.statusText;
-                        app.dialogFlag = "fail";
-                    }
+        createScreenshot() {
+            app.defaultPostXHR("do-screenshot.sh", ""
+                , () => {
+                    var button = document.getElementById("makeScreenshotButton");
+                    button.removeAttribute("disabled");
                 }
-            };
-
-            xhr.send();
+                , () => {
+                    var button = document.getElementById("makeScreenshotButton");
+                    button.removeAttribute("disabled");
+                }
+                , () => {
+                    var button = document.getElementById("makeScreenshotButton");
+                    button.setAttribute("disabled", "disabled");
+                }
+                );
         },
     }
 });
