@@ -60,16 +60,16 @@
 		<encoder95 invert="true" />
 	</E4>
 	<M1>
-		<motor350 />
+		<jga25-371 />
 	</M1>
 	<M2>
-		<motor350 />
+		<jga25-371 />
 	</M2>
 	<M3>
-		<motor350 />
+		<jga25-371 />
 	</M3>
 	<M4>
-		<motor350 />
+		<jga25-371 />
 	</M4>
 	<video1>
 		<lineSensor />
