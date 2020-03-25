@@ -643,7 +643,8 @@
                 <div class="form-group col-md-3">
                     <label>M1</label>
                     <select class="form-control form-control-sm" name="M1" v-model="m1">
-                        <option value="jga25-371">jga25-371</option>
+                        <option value="motor95">motor95</option>
+                        <option value="motor100">motor100</option>
                         <option value="motor350">motor350</option>
                     </select>
                 </div>
@@ -651,7 +652,8 @@
                 <div class="form-group col-md-3">
                     <label>M2</label>
                     <select class="form-control form-control-sm" name="M2" v-model="m2">
-                        <option value="jga25-371">jga25-371</option>
+                        <option value="motor95">motor95</option>
+                        <option value="motor100">motor100</option>
                         <option value="motor350">motor350</option>
                     </select>
                 </div>
@@ -659,7 +661,8 @@
                 <div class="form-group col-md-3">
                     <label>M3</label>
                     <select class="form-control form-control-sm" name="M3" v-model="m3">
-                        <option value="jga25-371">jga25-371</option>
+                        <option value="motor95">motor95</option>
+                        <option value="motor100">motor100</option>
                         <option value="motor350">motor350</option>
                     </select>
                 </div>
@@ -667,7 +670,8 @@
                 <div class="form-group col-md-3">
                     <label>M4</label>
                     <select class="form-control form-control-sm" name="M4" v-model="m4">
-                        <option value="jga25-371">jga25-371</option>
+                        <option value="motor95">motor95</option>
+                        <option value="motor100">motor100</option>
                         <option value="motor350">motor350</option>
                     </select>
                 </div>
@@ -854,7 +858,15 @@
                 <a class="navbar-brand" href="#">video1/video2</a>
             </nav>
             <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
+                    <label>getPhoto</label>
+                    <select class="form-control form-control-sm" name="getPhoto" v-model="getPhotoPort">
+                        <option value="1">video1</option>
+                        <option value="0">video2</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-4">
                     <label>video1</label>
                     <select class="form-control form-control-sm" name="video1" v-model="video1">
                         <option value="colorSensor3x3">colorSensor3x3</option>
@@ -864,7 +876,7 @@
                     </select>
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label>video2</label>
                     <select class="form-control form-control-sm" name="video2" v-model="video2">
                         <option value="colorSensor3x3">colorSensor3x3</option>
@@ -874,6 +886,7 @@
                     </select>
                 </div>
             </div>
+
 
 
             <button type="button" class=" btn btn-success btn-md btn-block fixed-bottom " data-toggle="modal"
@@ -933,8 +946,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
         <div class="tab-pane fade" id="ga">
 
             <button type="button" class="btn btn-secondary layer2 main-color-green"
@@ -1136,6 +1149,7 @@
             </div>
 
         </div>
+
         <div class="tab-pane fade" id="video">
             <div class="row">
                 <div class="mx-auto" style="width: 640px; height: 480px;">

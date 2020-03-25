@@ -47,12 +47,13 @@ const app = new Vue({
         e2: "encoder95",
         e3: "encoder95",
         e4: "encoder95",
-        m1: "jga25-371",
-        m2: "jga25-371",
-        m3: "jga25-371",
-        m4: "jga25-371",
+        m1: "motor100",
+        m2: "motor100",
+        m3: "motor100",
+        m4: "motor100",
         video1: "lineSensor",
         video2: "photo",
+        getPhotoPort: "0",
         e1State: "false",
         e2State: "true",
         e3State: "false",
@@ -134,6 +135,7 @@ const app = new Vue({
         this.m4 = ports[26];
         this.video1 = ports[27];
         this.video2 = ports[28];
+        this.getPhotoPort = text[3][0];
         this.gyroscope = ag[3];
         this.accelerometer = ag[0];
         this.gyroFreq = ag[4];
@@ -173,6 +175,7 @@ const app = new Vue({
         getPorts() {
             let params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} \n`;
             app.defaultPostXHR("config-writer.sh", params);
+            app.defaultPostXHR("set-videoport.sh", `${this.getPhotoPort}`);
         },
 
         changeLang(lang) {
@@ -204,12 +207,13 @@ const app = new Vue({
             this.e2 = "encoder95";
             this.e3 = "encoder95";
             this.e4 = "encoder95";
-            this.m1 = "jga25-371";
-            this.m2 = "jga25-371";
-            this.m3 = "jga25-371";
-            this.m4 = "jga25-371";
+            this.m1 = "motor100";
+            this.m2 = "motor100";
+            this.m3 = "motor100";
+            this.m4 = "motor100";
             this.video1 = "lineSensor";
             this.video2 = "photo";
+            this.getPhotoPort = "0";
             this.e1State = "false";
             this.e2State = "true";
             this.e3State = "false";
