@@ -13,20 +13,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License
 
-tty_path=/usr/share/trik/
-init_tty=/etc/trik/init_tty.sh
+system_config=/home/root/trik/system-config.xml
+current_params=current-params
 
 read -r params
 
 ./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
-if [ "$params" = "true" ]; then
-    ln -f "$tty_path"tty_ppp.sh $init_tty
-else
-    ln -f "$tty_path"tty_login.sh $init_tty
-sed -i "3c${params}" current-params
-fi
+sed -ie "1s/$/ ${params}/" "$current_params"
 
+sed -i "/<photo class=\"camera\"/c <photo class="camera" type=\"v4l2\" src=\"/dev/video${params}\" />" $system_config
+sed -i "/<camera type=/c <camera type=\"v4l2\" src=\"/dev/video${params}\" />" $system_config
 
 echo "HTTP/1.1 201 Modified"
 reboot
