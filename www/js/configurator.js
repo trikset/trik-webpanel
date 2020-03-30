@@ -47,10 +47,10 @@ const app = new Vue({
         e2: "encoder95",
         e3: "encoder95",
         e4: "encoder95",
-        m1: "jga25-371",
-        m2: "jga25-371",
-        m3: "jga25-371",
-        m4: "jga25-371",
+        m1: "motor100",
+        m2: "motor100",
+        m3: "motor100",
+        m4: "motor100",
         video1: "lineSensor",
         video2: "photo",
         getPhotoPort: "0",
@@ -135,7 +135,7 @@ const app = new Vue({
         this.m4 = ports[26];
         this.video1 = ports[27];
         this.video2 = ports[28];
-        this.getPhotoPort = ports[29];
+        this.getPhotoPort = text[3][0];
         this.gyroscope = ag[3];
         this.accelerometer = ag[0];
         this.gyroFreq = ag[4];
@@ -207,10 +207,10 @@ const app = new Vue({
             this.e2 = "encoder95";
             this.e3 = "encoder95";
             this.e4 = "encoder95";
-            this.m1 = "jga25-371";
-            this.m2 = "jga25-371";
-            this.m3 = "jga25-371";
-            this.m4 = "jga25-371";
+            this.m1 = "motor100";
+            this.m2 = "motor100";
+            this.m3 = "motor100";
+            this.m4 = "motor100";
             this.video1 = "lineSensor";
             this.video2 = "photo";
             this.getPhotoPort = "0";
