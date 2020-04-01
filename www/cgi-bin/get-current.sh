@@ -27,5 +27,6 @@ if [ ! -e ./current-params ]; then
   echo "true"
 fi >> current-params
 
+
 response=$(cat current-params)
 echo  "$response"
