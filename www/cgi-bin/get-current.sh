@@ -22,10 +22,9 @@ Content-lenght: 10
 EOF
 
 if [ ! -e ./current-params ]; then
-  echo "angularServomotor angularServomotor angularServomotor angularServomotor angularServomotor manipulatorServomotor sharpGP2Sensor sharpGP2Sensor touchSensor touchSensor lightSensor lightSensor sonarSensor sonarSensor volumeSensor encoder95 false encoder95 true encoder95 false encoder95 true motor100 motor100 motor100 motor100 lineSensor photo"
+  echo "angularServomotor angularServomotor angularServomotor angularServomotor angularServomotor manipulatorServomotor sharpGP2Sensor sharpGP2Sensor touchSensor touchSensor lightSensor lightSensor sonarSensor sonarSensor volumeSensor encoder95 false encoder95 true encoder95 false encoder95 true motor100 motor100 motor100 motor100 lineSensor photo 0"
   echo "ON 50 2G ON 95 2000"
   echo "true"
-  echo "0"
 fi >> current-params
 
 response=$(cat current-params)

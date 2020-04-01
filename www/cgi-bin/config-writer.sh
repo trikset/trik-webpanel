@@ -34,13 +34,20 @@ cat > $model_config << EOF
 
 EOF
 
-
+getPhotoPort="0"
 ports_config=""
 
 for i in $Args
 do
 	port=${i%=*}
 	device=${i#*=}
+
+  if [[ "$port" = "getPhoto" ]]
+  then
+    getPhotoPort="$device"
+    ports_config=$ports_config" "$device
+    continue
+  fi
 
 	echo "	<$port>" >> $model_config
 	
@@ -71,7 +78,7 @@ do
 	echo "	</$port>" >> $model_config
 done
 
-
+sed -i "/<photo /c <photo src=\"/dev/video${getPhotoPort}\"/>" "$model_config"
 sed -i "1c${ports_config}" $current_params
 
 # $1: is_active; $2: name;
