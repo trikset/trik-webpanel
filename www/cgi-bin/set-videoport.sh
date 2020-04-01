@@ -13,7 +13,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License
 
-system_config=system-config.xml
+model_config=model-config.xml
 current_params=current-params
 
 read -r params
@@ -22,10 +22,9 @@ read -r params
 
 sed -i "4c${params}" "$current_params"
 
-sed -i "/<photo class=\"camera/c <photo class=\"camera\" type=\"v4l2\" src=\"/dev/video${params}\" />" "$system_config"
-sed -i "/<camera type=/c <camera type=\"v4l2\" src=\"/dev/video${params}\" />" "$system_config"
+sed -i "/<photo /c <photo src=\"/dev/video${params}\"/>" "$model_config"
 
-cp "$system_config" "$(realpath /home/root/trik/system-config.xml)"
+cp "$model_config" "$(realpath /home/root/trik/model-config.xml)"
 
 echo "HTTP/1.1 201 Modified"
 
