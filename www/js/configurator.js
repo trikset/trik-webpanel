@@ -142,7 +142,7 @@ const app = new Vue({
         this.gyroRange = ag[5];
         this.accelFreq = ag[1];
         this.accelRange = ag[2];
-        this.pppdEnabled = (network[0] === "ON");
+        this.pppdEnabled = (network[0] === "true");
     },
     methods: {
         refreshDialogFlag() {
