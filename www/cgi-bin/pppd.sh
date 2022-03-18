@@ -21,12 +21,13 @@ read -r params
 ./notifyThenKill.sh "$(basename -- "$0")" $$ "$params"
 
 if [ "$params" = "true" ]; then
-    ln -f "$tty_path"tty_ppp.sh $init_tty
+    ln -sf "$tty_path"tty_ppp.sh $init_tty
 else
-    ln -f "$tty_path"tty_login.sh $init_tty
+    ln -sf "$tty_path"tty_login.sh $init_tty
 fi
 
 sed -i "3c${params}" current-params
 
 echo "HTTP/1.1 201 Modified"
+sync
 reboot
