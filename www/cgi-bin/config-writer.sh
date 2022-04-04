@@ -49,6 +49,12 @@ do
     continue
   fi
 
+	if [ "$port" = "ttyS1" ]; then
+		echo LINE_PROTOCOL="${device}" > /etc/default/ttyS1
+		sed -i "3c${device}" current-params
+		continue
+	fi
+
 	echo "	<$port>" >> $model_config
 	
 	case $port in
@@ -112,4 +118,8 @@ cp "$model_config" "$(realpath /home/root/trik/model-config.xml)"
 
 echo "HTTP/1.1 201 Modified"
 
+sync
+
+killall login
+killall pppd
 killall trikGui

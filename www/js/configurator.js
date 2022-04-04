@@ -26,7 +26,6 @@ const app = new Vue({
         hostName: "",
         hullNumber: "",
         leaderIP: "",
-        pppdEnabled: true,
         // Ports
         s1: "angularServomotor",
         s2: "angularServomotor",
@@ -65,8 +64,10 @@ const app = new Vue({
         gyroRange: "2000",
         accelFreq: "50",
         accelRange: "2G",
-		// Video stream
-		isStreamActive: false,
+        // Console UART
+        ttyS1: "ppp",
+        // Video stream
+        isStreamActive: false,
         // Success(Error) message
         dialogFlag: "waiting", // waiting ; fail ; success ; wrongInput
         xhrStatusPorts: "",
@@ -97,14 +98,14 @@ const app = new Vue({
         xhr.send();
         var ports;
         var ag;
-        var network;
+        var ttyS1;
         if (!(xhr.status >= 200 && xhr.status < 300)) {
         } else {
             var text = xhr.responseText;
             text = text.split('\n');
             ports = text[0].split(' ');
             ag = text[1].split(' ');
-            network = text[2].split(' ');
+            ttyS1 = text[2].split(' ');
         }
         this.s1 = ports[0];
         this.s2 = ports[1];
@@ -142,7 +143,7 @@ const app = new Vue({
         this.gyroRange = ag[5];
         this.accelFreq = ag[1];
         this.accelRange = ag[2];
-        this.pppdEnabled = (network[0] === "true");
+        this.ttyS1 = ttyS1[0];
     },
     methods: {
         refreshDialogFlag() {
@@ -173,7 +174,7 @@ const app = new Vue({
         },
 
         getPorts() {
-            let params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} getPhoto=${this.getPhotoPort} \n`;
+            let params = `S1=${this.s1} S2=${this.s2} S3=${this.s3} S4=${this.s4} S5=${this.s5} S6=${this.s6} A1=${this.a1} A2=${this.a2} A3=${this.a3} A4=${this.a4} A5=${this.a5} A6=${this.a6} D1=${this.d1} D2=${this.d2} D3=${this.d3} E1=${this.e1}?${this.e1State} E2=${this.e2}?${this.e2State} E3=${this.e3}?${this.e3State} E4=${this.e4}?${this.e4State} M1=${this.m1} M2=${this.m2} M3=${this.m3} M4=${this.m4} video1=${this.video1} video2=${this.video2} getPhoto=${this.getPhotoPort} ttyS1=${this.ttyS1}\n`;
 
             app.defaultPostXHR("config-writer.sh", params);
         },
@@ -317,28 +318,6 @@ const app = new Vue({
             };
 
             xhr.send();
-        },
-
-        switchPPPD() {
-            var xhr = new XMLHttpRequest();
-
-            xhr.open("POST", this.scriptPath + "pppd.sh");
-            xhr.setRequestHeader('Content-Type', 'text-plain');
-  
-            that = this;
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        app.dialogFlag = "success";
-                        that.pppdEnabled = !that.pppdEnabled;
-                    } else {
-                        app.xhrStatusPorts = xhr.status;
-                        app.xhrStatusPortsText = xhr.statusText;
-                        app.dialogFlag = "fail";
-                    }
-                }
-            };
-            xhr.send(`${!that.pppdEnabled} \n`);
         },
 
         getSnapshot() {
