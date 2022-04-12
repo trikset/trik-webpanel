@@ -52,6 +52,11 @@ do
 	if [ "$port" = "ttyS1" ]; then
 		echo LINE_PROTOCOL="${device}" > /etc/default/ttyS1
 		sed -i "3c${device}" current-params
+		if [ "$device" = "lidar" ]; then
+			echo '          <lidarPort> <lidar file="/dev/ttyS1" /> </lidarPort>' >> $model_config
+		else
+			echo '          <lidarPort> <lidar file="/dev/ttyUSB0" /> </lidarPort>' >> $model_config
+		fi
 		continue
 	fi
 
@@ -122,4 +127,5 @@ sync
 
 killall login
 killall pppd
+kill `ps -ef | awk '(($8=="sleep") && ($9=="infinity") && ($3==1)){print $2}'`
 killall trikGui
