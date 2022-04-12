@@ -125,7 +125,7 @@ echo "HTTP/1.1 201 Modified"
 
 sync
 
-killall login
-killall pppd
-kill `ps -ef | awk '(($8=="sleep") && ($9=="infinity") && ($3==1)){print $2}'`
-killall trikGui
+killall login >/dev/null 2>&1 || true
+killall pppd >/dev/null 2>&1 || true
+kill "$(ps -ef | awk '(($8=="sleep") && ($9=="infinity") && ($3==1)){print $2}')" >/dev/null 2>&1 || true
+killall trikGui >/dev/null 2>&1 || true
