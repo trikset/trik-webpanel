@@ -89,7 +89,7 @@ do
 	echo "	</$port>" >> $model_config
 done
 
-sed -i "/<photo /c <photo src=\"/dev/video${getPhotoPort}\"/>" "$model_config"
+sed -i "/<photo /c\ \t\t<photo src=\"/dev/video${getPhotoPort}\"/>" "$model_config"
 sed -i "1c${ports_config}" $current_params
 
 # $1: is_active; $2: name;
@@ -106,6 +106,10 @@ add_mems "$(lsmod | grep -c l3g42xxd)" "<gyroscope />"
 
 
 cat >> $model_config << EOF
+	<irCameraPort>
+		<irCamera />
+	</irCameraPort>
+
 	<!-- Optional modules -->
 	<gamepad />
 	<mailbox />
