@@ -89,7 +89,7 @@ do
 	echo "	</$port>" >> $model_config
 done
 
-sed -i "/<photo /c\ \t\t<photo src=\"/dev/video${getPhotoPort}\"/>" "$model_config"
+sed -i "s/<photo .*\/>/<photo src=\"\/dev\/video${getPhotoPort}\"\/>/g" "$model_config"
 sed -i "1c${ports_config}" $current_params
 
 # $1: is_active; $2: name;
