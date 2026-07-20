@@ -27,11 +27,11 @@ const app = new Vue({
         hullNumber: "",
         leaderIP: "",
         // Ports
-        s1: "angularServomotor",
-        s2: "angularServomotor",
-        s3: "angularServomotor",
-        s4: "angularServomotor",
-        s5: "angularServomotor",
+        s1: "angularServomotor180",
+        s2: "angularServomotor180",
+        s3: "angularServomotor180",
+        s4: "angularServomotor180",
+        s5: "angularServomotor180",
         s6: "manipulatorServomotor",
         a1: "sharpGP2Sensor",
         a2: "sharpGP2Sensor",
@@ -189,11 +189,11 @@ const app = new Vue({
         },
 
         defaultPorts() {
-            this.s1 = "angularServomotor";
-            this.s2 = "angularServomotor";
-            this.s3 = "angularServomotor";
-            this.s4 = "angularServomotor";
-            this.s5 = "angularServomotor";
+            this.s1 = "angularServomotor180";
+            this.s2 = "angularServomotor180";
+            this.s3 = "angularServomotor180";
+            this.s4 = "angularServomotor180";
+            this.s5 = "angularServomotor180";
             this.s6 = "manipulatorServomotor";
             this.a1 = "sharpGP2Sensor";
             this.a2 = "sharpGP2Sensor";
