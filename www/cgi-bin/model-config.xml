@@ -72,11 +72,14 @@
 		<motor100 />
 	</M4>
 	<video1>
-		<lineSensor />
+		<videoDevice />
 	</video1>
 	<video2>
-		<photo src="/dev/video0"/>
+		<videoDevice />
 	</video2>
+	<usb-camera>
+		<videoDevice />
+	</usb-camera>
 	<lidarPort> <lidar file="/dev/ttyUSB0" /> </lidarPort>
 	<boardAccelPort> <accelerometer /> </boardAccelPort>
 	<boardGyroPort> <gyroscope /> </boardGyroPort>

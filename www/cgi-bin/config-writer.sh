@@ -33,20 +33,12 @@ cat > $model_config << EOF
 
 EOF
 
-getPhotoPort="0"
 ports_config=""
 
 for i in $Args
 do
 	port=${i%=*}
 	device=${i#*=}
-
-  if [[ "$port" = "getPhoto" ]]
-  then
-    getPhotoPort="$device"
-    ports_config=$ports_config" "$device
-    continue
-  fi
 
 	if [ "$port" = "ttyS1" ]; then
 		echo LINE_PROTOCOL="${device}" > /etc/default/ttyS1
@@ -68,17 +60,16 @@ do
 			device="$encoder $invert"
 			echo "		<$encoder invert=\"$invert\" />" >> $model_config
 			;;
-		"video"[0-9]) #video1 video2
-			if [[ "$device" = "edgeLineSensor" ]]
-			then
-				echo "		<lineSensor script=\"/etc/init.d/edge-line-sensor-ov7670\" />" >> $model_config
-			else
-				echo "		<$device />" >> $model_config
-			fi
-			;;
 	  "D3")
 	    echo "		<!-- <$device /> -->" >> $model_config
 	    ;;
+		"video1"|"video2"|"usb-camera")
+			if [ "$device" = "true" ]; then
+				echo '		<videoDevice lineIsEdge="true" />' >> $model_config
+			else
+				echo '		<videoDevice />' >> $model_config
+			fi
+			;;
 		*)
 			echo "		<$device />" >> $model_config
 			;;
@@ -88,7 +79,6 @@ do
 	echo "	</$port>" >> $model_config
 done
 
-sed -i "s/<photo .*\/>/<photo src=\"\/dev\/video${getPhotoPort}\"\/>/g" "$model_config"
 sed -i "1c${ports_config}" $current_params
 
 get_status_367() {
