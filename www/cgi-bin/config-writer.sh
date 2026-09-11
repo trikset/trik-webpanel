@@ -123,7 +123,7 @@ cat >> $model_config << EOF
 	<!-- Optional modules -->
 	<gamepad />
 	<mailbox />
-
+	<dspServer/>
 	<!-- Example of custom FIFO sensor -->
 	<!--
 	<soundSensor>
